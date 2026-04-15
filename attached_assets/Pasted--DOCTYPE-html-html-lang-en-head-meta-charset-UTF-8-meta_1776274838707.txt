@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sean Gibson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,300;1,14..32,400;1,14..32,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07111a;
+  --surface:#0a1520;
+  --card:#0c1927;
+  --cream:#EAE4D6;
+  --cream-60:rgba(234,228,214,.6);
+  --cream-25:rgba(234,228,214,.25);
+  --cream-10:rgba(234,228,214,.07);
+  --green:#2EB872;
+  --green-40:rgba(46,184,114,.4);
+  --green-10:rgba(46,184,114,.1);
+  --border:rgba(234,228,214,.07);
+  --border-m:rgba(234,228,214,.13);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit;cursor:pointer}
+
+/* grain */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9999}
+
+/* pages */
+.page{display:none}
+.page.active{display:block;animation:rise .55s cubic-bezier(.16,1,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:60px;border-bottom:1px solid var(--border);background:rgba(7,17,26,.85);backdrop-filter:blur(20px)}
+.nl{display:flex;align-items:center;gap:.75rem;cursor:pointer}
+.nm{width:26px;height:26px;border-radius:50%;border:1px solid var(--border-m);display:grid;place-items:center;flex-shrink:0}
+.nm span{font-size:.55rem;font-weight:900;letter-spacing:-.02em}
+.nm .s{color:var(--cream)}.nm .g{color:var(--green)}
+.nw{font-size:.65rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.nw .s{color:var(--cream)}.nw .g{color:var(--green)}
+.nr{display:flex;align-items:center;gap:.15rem}
+.nr a{font-size:.68rem;font-weight:500;color:var(--cream-60);padding:.35rem .7rem;border-radius:2px;letter-spacing:.02em;transition:color .15s,background .15s}
+.nr a:hover{color:var(--cream);background:var(--cream-10)}
+.nr a.on{color:var(--green)}
+.nk{margin-left:.5rem;padding:.38rem .9rem;background:var(--green);color:var(--bg);font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;transition:opacity .15s,transform .1s}
+.nk:hover{opacity:.85;transform:translateY(-1px)}
+
+/* ── TYPE ── */
+.serif{font-family:'DM Serif Display',Georgia,serif}
+.tag{font-size:.55rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--green);display:inline-flex;align-items:center;gap:.55rem}
+.tag::before{content:'';width:18px;height:1px;background:var(--green)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.3rem;font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:opacity .15s,transform .1s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:none;opacity:.75}
+.btn-p{background:var(--green);color:var(--bg)}.btn-p:hover{opacity:.88}
+.btn-o{border:1px solid var(--green-40);color:var(--green)}.btn-o:hover{background:var(--green-10)}
+
+/* ── SHARED ── */
+.pw{max-width:1120px;margin:0 auto;padding:0 3rem}
+.pp{padding-top:8rem;padding-bottom:7rem}
+.rule{height:1px;background:var(--border)}
+
+/* ══ HOME ══ */
+
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 0;max-width:1120px;margin:0 auto;position:relative}
+.hero-bg{position:fixed;top:0;left:0;right:0;height:100vh;background:radial-gradient(ellipse 60% 50% at 75% 35%,rgba(46,184,114,.055) 0%,transparent 70%);pointer-events:none}
+.hero-index{position:absolute;top:5rem;right:0;font-size:clamp(9rem,22vw,18rem);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(234,228,214,.04);letter-spacing:-.06em;user-select:none;pointer-events:none}
+.hero-body{position:relative;z-index:1;padding:7rem 0 0}
+.hero-pre{margin-bottom:2.5rem}
+.hero-h{font-size:clamp(3rem,6.5vw,6rem);font-weight:900;line-height:1.02;letter-spacing:-.055em;max-width:820px;margin-bottom:1.75rem}
+.hero-h em{font-style:italic;font-weight:300;color:var(--green);font-family:'DM Serif Display',Georgia,serif}
+.hero-sub{font-size:.98rem;color:var(--cream-60);line-height:1.9;max-width:420px;margin-bottom:2.5rem}
+.hero-acts{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:4rem}
+/* bottom bar */
+.hero-bar{border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);padding:1.5rem 0}
+.hb-item{padding:0 2rem;border-right:1px solid var(--border)}
+.hb-item:first-child{padding-left:0}
+.hb-item:last-child{border-right:none}
+.hb-n{font-size:1.8rem;font-weight:900;letter-spacing:-.04em;line-height:1;color:var(--cream);margin-bottom:.2rem}
+.hb-n span{color:var(--green)}
+.hb-l{font-size:.65rem;color:var(--cream-60);letter-spacing:.02em;line-height:1.5}
+
+/* TICKER */
+.ticker{overflow:hidden;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);height:36px;display:flex;align-items:center}
+.ticker-t{display:flex;white-space:nowrap;animation:tick 28s linear infinite;gap:0}
+.ticker-t:hover{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+.ti{display:inline-flex;align-items:center;gap:.5rem;padding:0 2rem;font-size:.62rem;color:var(--cream-60);font-weight:500;letter-spacing:.03em}
+.ti-d{width:3px;height:3px;border-radius:50%;background:var(--green);opacity:.6}
+
+/* PATHWAYS */
+.paths{padding:7rem 3rem}
+.paths-head{max-width:1120px;margin:0 auto 3.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:3rem}
+.paths-head h2{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:900;line-height:1.08;letter-spacing:-.045em;max-width:400px;margin-top:.85rem}
+.paths-head p{font-size:.83rem;color:var(--cream-60);line-height:1.82;max-width:300px;text-align:right}
+.paths-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.pc{background:var(--card);padding:2.5rem 2rem;border-right:1px solid var(--border);cursor:pointer;position:relative;overflow:hidden;transition:background .2s;display:flex;flex-direction:column}
+.pc:last-child{border-right:none}
+.pc:hover{background:#0f2030}
+.pc-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.pc:hover .pc-line{transform:scaleX(1)}
+.pc-num{font-size:4rem;font-weight:900;letter-spacing:-.06em;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(234,228,214,.07);user-select:none;margin-bottom:1.25rem}
+.pc-tag{font-size:.54rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:.55rem}
+.pc h3{font-size:1rem;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-bottom:.7rem}
+.pc p{font-size:.78rem;color:var(--cream-60);line-height:1.8;flex:1}
+.pc-go{margin-top:1.75rem;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:.4rem;transition:gap .25s}
+.pc:hover .pc-go{gap:.7rem}
+
+/* ══ ABOUT ══ */
+.about-hl{font-size:clamp(2.5rem,5.5vw,5rem);font-weight:900;line-height:1.03;letter-spacing:-.055em;margin:1rem 0 4rem;max-width:900px}
+.about-hl em{font-style:italic;color:var(--green);font-weight:300;font-family:'DM Serif Display',Georgia,serif}
+.about-two{display:grid;grid-template-columns:5fr 4fr;gap:5rem;margin-bottom:5rem}
+.about-copy p{font-size:.94rem;color:var(--cream-60);line-height:1.95;margin-bottom:1.15rem}
+.pull{padding:1.75rem 0 1.75rem 1.75rem;border-left:2px solid var(--green);margin:2rem 0}
+.pull p{font-family:'DM Serif Display',Georgia,serif;font-size:1.35rem;color:var(--cream);line-height:1.55;font-style:italic;font-weight:400}
+.pull cite{display:block;margin-top:.75rem;font-family:'Inter',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-style:normal}
+/* insight stack */
+.istack{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.is{background:var(--card);padding:1.5rem;border-bottom:1px solid var(--border);transition:background .2s}
+.is:last-child{border-bottom:none}
+.is:hover{background:#0f2030}
+.is-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.55rem}
+.is-title{font-size:.84rem;font-weight:700;letter-spacing:-.01em}
+.is-pill{font-size:.49rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);background:var(--green-10);padding:.18rem .55rem;border-radius:100px}
+.is p{font-size:.76rem;color:var(--cream-60);line-height:1.78}
+/* ed image */
+.ed{position:relative;border-radius:4px;overflow:hidden;border:1px solid var(--border);aspect-ratio:21/8;background:var(--card);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.6rem;color:var(--cream-25)}
+.ed img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ed svg,.ed-ph{position:relative;z-index:1}
+.ed-ph{font-size:.56rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;opacity:.4}
+.ed-cap{position:absolute;bottom:.85rem;left:.85rem;font-size:.56rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(234,228,214,.4);background:rgba(7,17,26,.75);padding:.25rem .55rem;border-radius:1px;backdrop-filter:blur(8px);z-index:2}
+/* domains */
+.doms{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-top:4rem}
+.dm{background:var(--card);padding:2rem;border-right:1px solid var(--border);display:flex;flex-direction:column;transition:background .2s}
+.dm:last-child{border-right:none}
+.dm:hover{background:#0f2030}
+.dm-t{font-size:.52rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:.85rem}
+.dm-o{font-size:1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.3rem}
+.dm-r{font-size:.71rem;color:var(--cream-60);line-height:1.55;flex:1;margin-bottom:1.1rem}
+.dm-lnk{display:inline-flex;align-items:center;gap:.38rem;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);padding-top:.9rem;border-top:1px solid var(--border);width:100%;transition:gap .2s}
+.dm:hover .dm-lnk{gap:.6rem}
+
+/* ══ HPOS ══ */
+.hpos-hl{font-size:clamp(2.5rem,5.5vw,5rem);font-weight:900;line-height:1.03;letter-spacing:-.055em;margin:1rem 0}
+.hpos-two{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin:3rem 0 4rem;align-items:start}
+.hpos-copy p{font-size:.93rem;color:var(--cream-60);line-height:1.9;margin-bottom:.95rem}
+.hpos-copy .note{font-size:.78rem;color:var(--cream-25);font-style:italic;line-height:1.7;margin-top:1.5rem}
+.def-box{background:var(--surface);border:1px solid rgba(46,184,114,.22);border-radius:4px;padding:2rem;position:relative;overflow:hidden}
+.def-box::before{content:'';position:absolute;top:-80px;right:-80px;width:200px;height:200px;background:radial-gradient(circle,rgba(46,184,114,.07) 0%,transparent 65%);pointer-events:none}
+.def-tag{font-size:.52rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem}
+.def-title{font-size:1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.85rem}
+.def-body{font-size:.8rem;color:var(--cream-60);line-height:1.82;margin-bottom:1rem}
+.def-note{font-size:.68rem;color:var(--cream-25);font-style:italic;padding-top:.85rem;border-top:1px solid var(--border);line-height:1.65}
+/* phases */
+.sub{font-size:.54rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-25);display:block;margin-bottom:.7rem}
+.phases{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.ph{background:var(--card);padding:1.75rem 1.4rem;border-right:1px solid var(--border);position:relative;overflow:hidden;transition:background .2s}
+.ph:last-child{border-right:none}
+.ph:hover{background:#0f2030}
+.ph::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--green);transform:translateX(-100%);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.ph:hover::before{transform:none}
+.ph-n{font-size:2.2rem;font-weight:900;letter-spacing:-.06em;color:var(--green);opacity:.25;line-height:1;margin-bottom:.5rem}
+.ph-t{font-size:.78rem;font-weight:700;margin-bottom:.4rem}
+.ph-d{font-size:.69rem;color:var(--cream-60);line-height:1.65}
+/* dims */
+.dims{display:grid;grid-template-columns:repeat(6,1fr);gap:.55rem;margin-bottom:3rem}
+.dim{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem .8rem;text-align:center;transition:border-color .2s,background .2s}
+.dim:hover{border-color:var(--green-40);background:#0f2030}
+.dim-l{font-size:.6rem;font-weight:600;color:var(--cream-60);letter-spacing:.05em}
+.dim-s{font-size:.5rem;color:var(--green);letter-spacing:.07em;margin-top:.2rem;opacity:.7}
+/* debt */
+.debt{display:grid;grid-template-columns:48px 1fr;gap:1.5rem;align-items:start;background:var(--surface);border:1px solid rgba(46,184,114,.2);border-radius:4px;padding:2rem}
+.debt-i{width:48px;height:48px;border-radius:3px;background:var(--green-10);display:grid;place-items:center;color:var(--green)}
+.debt-l{font-size:.52rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:.4rem}
+.debt-ti{font-size:.98rem;font-weight:800;margin-bottom:.5rem;letter-spacing:-.01em}
+.debt-b{font-size:.79rem;color:var(--cream-60);line-height:1.8}
+
+/* ══ SPEAKING ══ */
+.sp-hero{display:grid;grid-template-columns:3fr 2fr;gap:5rem;align-items:end;margin-bottom:4rem}
+.sp-h{font-size:clamp(2.2rem,5vw,4.5rem);font-weight:900;line-height:1.04;letter-spacing:-.055em;margin:1rem 0 1.5rem}
+.sp-sub{font-size:.93rem;color:var(--cream-60);line-height:1.9;margin-bottom:1.75rem}
+.sp-stats{display:flex;flex-direction:column;gap:.65rem}
+.sp-st{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.5rem 1.75rem}
+.sp-st-n{font-size:2.5rem;font-weight:900;letter-spacing:-.05em;line-height:1;color:var(--cream)}
+.sp-st-n em{font-style:normal;color:var(--green)}
+.sp-st-l{font-size:.64rem;color:var(--cream-60);margin-top:.3rem;line-height:1.5}
+/* cards */
+.sc-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2.5rem}
+.sc{background:var(--card);padding:2rem;border-right:1px solid var(--border);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .2s}
+.sc:last-child{border-right:none}
+.sc:hover{background:#0f2030}
+.sc::after{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--green);transition:height .4s cubic-bezier(.16,1,.3,1)}
+.sc:hover::after{height:100%}
+.sc-t{font-size:.52rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.9rem}
+.sc h3{font-size:.96rem;font-weight:800;margin-bottom:.65rem;letter-spacing:-.02em;line-height:1.3}
+.sc p{font-size:.78rem;color:var(--cream-60);line-height:1.8;flex:1}
+.sc-d{display:block;margin-top:1.1rem;font-size:.59rem;font-weight:600;color:var(--cream-25);letter-spacing:.08em;padding-top:.85rem;border-top:1px solid var(--border)}
+/* icp */
+.icp{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.75rem 2rem;display:flex;gap:2.5rem;align-items:start;margin-bottom:3rem}
+.icp-l{font-size:.52rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);white-space:nowrap;padding-top:.1rem}
+.icp-b{font-size:.8rem;color:var(--cream-60);line-height:1.82}
+/* book */
+.sp-book{display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding:3rem 0;border-top:1px solid var(--border)}
+.sp-book h3{font-size:clamp(1.2rem,2.2vw,1.8rem);font-weight:900;line-height:1.15;letter-spacing:-.04em;margin-bottom:.45rem}
+.sp-book p{font-size:.81rem;color:var(--cream-60);line-height:1.75;max-width:380px}
+
+/* ══ CONTACT ══ */
+.ct-wrap{max-width:700px}
+.ct-hl{font-size:clamp(2.2rem,5vw,4.5rem);font-weight:900;line-height:1.04;letter-spacing:-.055em;margin:1rem 0 1.5rem}
+.ct-hl em{font-style:italic;color:var(--green);font-weight:300;font-family:'DM Serif Display',Georgia,serif}
+.ct-lead{font-size:.93rem;color:var(--cream-60);line-height:1.9;margin-bottom:3rem}
+.ct-cards{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:.65rem}
+.ctc{background:var(--card);padding:2rem;border-right:1px solid var(--border);transition:background .2s}
+.ctc:last-child{border-right:none}
+.ctc:hover{background:#0f2030}
+.ctc-l{font-size:.52rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:.7rem}
+.ctc h3{font-size:.9rem;font-weight:700;margin-bottom:.45rem;letter-spacing:-.01em}
+.ctc p{font-size:.77rem;color:var(--cream-60);line-height:1.73;margin-bottom:.9rem}
+.ctc-e{font-size:.76rem;font-weight:700;color:var(--green);display:inline-flex;align-items:center;gap:.35rem;transition:gap .2s}
+.ctc:hover .ctc-e{gap:.55rem}
+.ct-main{padding:2rem 2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.ct-main-l{font-size:.75rem;color:var(--cream-60)}
+.ct-email{font-size:1.15rem;font-weight:700;color:var(--green);letter-spacing:-.01em;border-bottom:1px solid var(--green-40);padding-bottom:.12rem;transition:border-color .2s}
+.ct-email:hover{border-color:var(--green)}
+
+/* FOOTER */
+footer{margin-top:7rem;border-top:1px solid var(--border);padding:1.5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.fw{font-size:.63rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.fw .s{color:var(--cream)}.fw .g{color:var(--green)}
+.fl{display:flex;gap:1.5rem}
+.fl a{font-size:.63rem;color:var(--cream-25);transition:color .15s}
+.fl a:hover{color:var(--cream-60)}
+footer small{font-size:.6rem;color:var(--cream-25)}
+
+/* RESPONSIVE */
+@media(max-width:980px){
+  nav{padding:0 1.5rem}
+  .nr,.nk{display:none}
+  .hero,.paths,.pw,.pp{padding-left:1.5rem;padding-right:1.5rem}
+  .paths{padding-top:4rem;padding-bottom:5rem}
+  .paths-grid,.doms,.sc-grid,.ct-cards{grid-template-columns:1fr;border-radius:4px}
+  .pc,.dm,.sc,.ctc{border-right:none;border-bottom:1px solid var(--border)}
+  .pc:last-child,.dm:last-child,.sc:last-child,.ctc:last-child{border-bottom:none}
+  .about-two,.hpos-two,.sp-hero{grid-template-columns:1fr;gap:3rem}
+  .phases{grid-template-columns:repeat(3,1fr)}
+  .dims{grid-template-columns:repeat(3,1fr)}
+  .paths-head{flex-direction:column;align-items:flex-start;gap:1rem}
+  .paths-head p{text-align:left}
+  .hero-bar{grid-template-columns:1fr}
+  .hb-item{border-right:none;border-bottom:1px solid var(--border);padding:1rem 0}
+  .hb-item:last-child{border-bottom:none}
+  .icp{flex-direction:column;gap:.75rem}
+  .sp-book,.ct-main{flex-direction:column;align-items:flex-start}
+  footer{padding:1.25rem 1.5rem;flex-direction:column;align-items:flex-start;gap:.75rem}
+}
+@media(max-width:520px){
+  .phases{grid-template-columns:repeat(2,1fr)}
+  .dims{grid-template-columns:repeat(2,1fr)}
+  .hero-acts{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nl" onclick="go('home')">
+    <div class="nm"><span class="s">S</span><span class="g">G</span></div>
+    <div class="nw"><span class="s">SEAN</span><span class="g">GIBSON</span></div>
+  </div>
+  <div class="nr">
+    <a data-p="about" onclick="go('about')">About</a>
+    <a data-p="hpos" onclick="go('hpos')">The HPOS</a>
+    <a data-p="speaking" onclick="go('speaking')">Speaking</a>
+    <a data-p="contact" onclick="go('contact')">Contact</a>
+    <div class="nk" onclick="go('contact')">Get in Touch</div>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div id="page-home" class="page active">
+  <div class="hero-bg"></div>
+  <div class="hero">
+    <div class="hero-index" aria-hidden="true">SG</div>
+    <div class="hero-body">
+      <div class="hero-pre"><span class="tag">Systems Thinker · Sport Governance · AI Risk</span></div>
+      <h1 class="hero-h">I spent years asking why <em>good organisations</em> keep failing the same way.</h1>
+      <p class="hero-sub">The answer was always the same. It wasn't the people. It was the system — and no one was looking at the system.</p>
+      <div class="hero-acts">
+        <div class="btn btn-p" onclick="go('about')">My Story</div>
+        <div class="btn btn-o" onclick="go('hpos')">The High Performance OS</div>
+      </div>
+    </div>
+    <div class="hero-bar">
+      <div class="hb-item">
+        <div class="hb-n">20<span>+</span></div>
+        <div class="hb-l">Years across enterprise governance<br>and elite sport leadership</div>
+      </div>
+      <div class="hb-item">
+        <div class="hb-n">3<span>×</span></div>
+        <div class="hb-l">Active senior operational roles<br>simultaneously held</div>
+      </div>
+      <div class="hb-item">
+        <div class="hb-n">1<span> question</span></div>
+        <div class="hb-l">Is the system coherent? Who is<br>absorbing the cost when it isn't?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="ticker-t">
+      <div class="ti"><div class="ti-d"></div><span>Principal Researcher, GRC · Ardoq</span></div>
+      <div class="ti"><div class="ti-d"></div><span>Men's National Team Director · Ireland Lacrosse</span></div>
+      <div class="ti"><div class="ti-d"></div><span>Chair, High Performance Committee · Ireland Lacrosse</span></div>
+      <div class="ti"><div class="ti-d"></div><span>Former Board Member · World Lacrosse</span></div>
+      <div class="ti"><div class="ti-d"></div><span>Founder · Glenview Sports</span></div>
+      <div class="ti"><div class="ti-d"></div><span>Principal Researcher, GRC · Ardoq</span></div>
+      <div class="ti"><div class="ti-d"></div><span>Men's National Team Director · Ireland Lacrosse</span></div>
+      <div class="ti"><div class="ti-d"></div><span>Chair, High Performance Committee · Ireland Lacrosse</span></div>
+      <div class="ti"><div class="ti-d"></div><span>Former Board Member · World Lacrosse</span></div>
+      <div class="ti"><div class="ti-d"></div><span>Founder · Glenview Sports</span></div>
+    </div>
+  </div>
+
+  <div class="paths">
+    <div class="paths-head">
+      <div>
+        <span class="tag">Where do you want to start?</span>
+        <h2>One lens.<br>Three contexts.</h2>
+      </div>
+      <p>Whether you're a sport board, an executive team, or a leader navigating AI adoption — the structural question is the same.</p>
+    </div>
+    <div class="paths-grid">
+      <div class="pc" onclick="go('about')">
+        <div class="pc-num" aria-hidden="true">01</div>
+        <div class="pc-tag">The Person</div>
+        <h3>Who is Sean Gibson?</h3>
+        <p>Two decades. Two worlds. One question that wouldn't go away. The story behind the framework and why this work exists.</p>
+        <div class="pc-go">Read the story <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="pc-line"></div>
+      </div>
+      <div class="pc" onclick="go('hpos')">
+        <div class="pc-num" aria-hidden="true">02</div>
+        <div class="pc-tag">The Framework</div>
+        <h3>The High Performance Operating System</h3>
+        <p>A system-level construct for diagnosing and redesigning how performance is produced. Sport, enterprise, AI governance.</p>
+        <div class="pc-go">Explore the HPOS <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="pc-line"></div>
+      </div>
+      <div class="pc" onclick="go('speaking')">
+        <div class="pc-num" aria-hidden="true">03</div>
+        <div class="pc-tag">The Work</div>
+        <h3>Speaking, advisory, working sessions</h3>
+        <p>Keynotes, conference panels, board workshops. A practitioner's perspective — not a consultant's pitch.</p>
+        <div class="pc-go">See speaking <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="pc-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="fw"><span class="s">SEAN</span><span class="g">GIBSON</span></div>
+    <div class="fl"><a onclick="go('about')">About</a><a onclick="go('hpos')">HPOS</a><a onclick="go('speaking')">Speaking</a><a onclick="go('contact')">Contact</a></div>
+    <small>© 2026 · Glenview Sports Advisory</small>
+  </footer>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div id="page-about" class="page">
+  <div class="pw pp">
+    <span class="tag" style="margin-bottom:1.5rem">About</span>
+    <h1 class="about-hl">I didn't set out to build a framework. I set out to understand why the <em>failure kept happening.</em></h1>
+    <div class="about-two">
+      <div class="about-copy">
+        <p>For most of my career I've lived in two worlds at once. In the enterprise, I've worked at the intersection of governance, risk, and complex systems — understanding how large organisations make decisions, where authority sits, and what happens when those structures drift.</p>
+        <p>In sport, I've held senior governance roles at national and international level — including on the World Lacrosse Board of Directors — and I've watched high-performance programmes fail in ways that had nothing to do with talent.</p>
+        <p>That dual vantage point changed how I saw everything. The failure modes were identical. Governance that lags operating reality. Strategy no one has translated into decision rights. Incentives pointing in a different direction to the stated goals. In sport we called it underperformance. In enterprise we called it misalignment. It was the same thing.</p>
+        <div class="pull">
+          <p>"Performance failures are almost never talent failures. They're system failures that have been accumulating long enough to become visible."</p>
+          <cite>Sean Gibson</cite>
+        </div>
+        <p>That insight became the High Performance Operating System. I've since applied it to national sport programmes, enterprise governance design, and AI adoption frameworks. The structural logic is the same wherever complex systems produce outcomes people care about.</p>
+        <p>Today I run three roles in parallel: principal researcher in GRC at Ardoq; Men's National Team Director at Ireland Lacrosse; and founder of Glenview Sports, where I work with organisations that want to fix the system, not just the symptoms.</p>
+      </div>
+      <div class="istack">
+        <div class="is"><div class="is-top"><div class="is-title">The Insight That Started It</div><div class="is-pill">Origin</div></div><p>Years in enterprise governance and sport leadership simultaneously made the pattern impossible to ignore. Every system failure traced back to the same root causes — structural misalignment compounding undetected until someone absorbed the cost.</p></div>
+        <div class="is"><div class="is-top"><div class="is-title">Why AI Governance Fits</div><div class="is-pill">AI Risk</div></div><p>Organisations adopting AI face the same structural challenge as any complex system change. Governance lags the technology. Decision rights are unclear. The HPOS applies directly — the failure mode is identical.</p></div>
+        <div class="is"><div class="is-top"><div class="is-title">What Drives the Work</div><div class="is-pill">Mission</div></div><p>Athletes who underperform because their programme was structurally misaligned. The cost always lands on people who couldn't avoid it. That's the problem I'm trying to solve.</p></div>
+        <div class="is"><div class="is-top"><div class="is-title">How I Work</div><div class="is-pill">Practice</div></div><p>Board and executive level. Thinking partner, diagnostic lens, framework builder. Engagements are advisory-led — not delivery-led. Clarity on what the system is doing, and a design for what it needs to do instead.</p></div>
+      </div>
+    </div>
+
+    <div class="ed" style="margin-bottom:4rem">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span class="ed-ph">GovNet conference panel — replace src with your image</span>
+      <div class="ed-cap">GovNet Technology · Panel</div>
+    </div>
+
+    <span class="tag" style="margin-bottom:1.5rem">Where I Work</span>
+    <div class="doms">
+      <div class="dm"><div class="dm-t">Commercial</div><div class="dm-o">Ardoq</div><div class="dm-r">Principal Researcher · GRC. Enterprise architecture, GRC research, and AI governance frameworks at scale.</div><a href="https://ardoq.com" target="_blank" rel="noopener" class="dm-lnk">Visit Ardoq <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <div class="dm"><div class="dm-t">Volunteer</div><div class="dm-o">Ireland Lacrosse</div><div class="dm-r">Men's National Team Director · Chair, HP Committee. Governing Ireland's senior men's programme on the pathway to LA 2028.</div><a href="https://irelandlacrosse.ie" target="_blank" rel="noopener" class="dm-lnk">Visit Ireland Lacrosse <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <div class="dm"><div class="dm-t">Advisory</div><div class="dm-o">Glenview Sports</div><div class="dm-r">Founder · Sport Governance &amp; HP System Design. Bridging enterprise governance with high-performance sport system design.</div><a href="https://glenviewsports.com" target="_blank" rel="noopener" class="dm-lnk">Visit Glenview Sports <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    </div>
+  </div>
+  <footer><div class="fw"><span class="s">SEAN</span><span class="g">GIBSON</span></div><div class="fl"><a onclick="go('home')">Home</a><a onclick="go('hpos')">HPOS</a><a onclick="go('contact')">Contact</a></div><small>© 2026</small></footer>
+</div>
+
+<!-- ══ HPOS ══ -->
+<div id="page-hpos" class="page">
+  <div class="pw pp">
+    <span class="tag" style="margin-bottom:1.5rem">Intellectual Property</span>
+    <h1 class="hpos-hl">The High Performance<br>Operating System</h1>
+    <div class="hpos-two">
+      <div class="hpos-copy">
+        <p>Performance is not created by programmes. It is emergent from system coherence — from the interaction between strategy, governance, people, pathways, data, and culture across the whole organisation.</p>
+        <p>The HPOS is the framework I use to see, diagnose, and redesign how performance is actually produced. Not a model you install. A lens applied at board level, where the structural decisions are made.</p>
+        <p>It is directly applicable to elite sport organisations, enterprise governance design, and AI adoption — anywhere that structural alignment determines whether outcomes land where the strategy intended.</p>
+        <p class="note">Performance Debt is the diagnostic concept within the HPOS — the structural accumulation of misalignment across cycles, until someone absorbs the cost.</p>
+      </div>
+      <div class="def-box">
+        <div class="def-tag">System Definition</div>
+        <div class="def-title">High Performance Operating System</div>
+        <div class="def-body">A system-level construct describing how strategy, governance, people, pathways, data, and culture interact to produce outcomes. Performance is emergent from coherence between these dimensions — not from any one in isolation.</div>
+        <div class="def-note">Applicable wherever structural alignment determines outcome quality — elite sport, enterprise transformation, AI governance, and GRC design.</div>
+      </div>
+    </div>
+
+    <div class="ed" style="margin-bottom:3.5rem">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span class="ed-ph">World Lacrosse 2023 · Snapdragon Stadium — replace src</span>
+      <div class="ed-cap">World Lacrosse 2023 · San Diego</div>
+    </div>
+
+    <span class="sub">Five-phase application</span>
+    <div class="phases" style="margin-bottom:2.5rem">
+      <div class="ph"><div class="ph-n">01</div><div class="ph-t">Diagnose</div><div class="ph-d">Surface how the system actually operates. Decision rights, incentives, structural contradictions.</div></div>
+      <div class="ph"><div class="ph-n">02</div><div class="ph-t">Align</div><div class="ph-d">Ensure strategy, governance, and incentives are coherent. Most systems fail here.</div></div>
+      <div class="ph"><div class="ph-n">03</div><div class="ph-t">Design</div><div class="ph-d">Build the target operating system. Not a plan — how the organisation will function.</div></div>
+      <div class="ph"><div class="ph-n">04</div><div class="ph-t">Implement</div><div class="ph-d">Move from model to reality. Advisory-guided, not delivery-led.</div></div>
+      <div class="ph"><div class="ph-n">05</div><div class="ph-t">Support</div><div class="ph-d">Prevent drift. Review loops, system health checks, board-level continuity.</div></div>
+    </div>
+
+    <span class="sub">Six system dimensions</span>
+    <div class="dims">
+      <div class="dim"><div class="dim-l">Strategy</div><div class="dim-s">Intent</div></div>
+      <div class="dim"><div class="dim-l">Governance</div><div class="dim-s">Decisions</div></div>
+      <div class="dim"><div class="dim-l">People</div><div class="dim-s">Capability</div></div>
+      <div class="dim"><div class="dim-l">Pathways</div><div class="dim-s">Structure</div></div>
+      <div class="dim"><div class="dim-l">Data</div><div class="dim-s">Feedback</div></div>
+      <div class="dim"><div class="dim-l">Culture</div><div class="dim-s">Behaviour</div></div>
+    </div>
+
+    <div class="debt">
+      <div class="debt-i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div><div class="debt-l">Diagnostic Concept</div><div class="debt-ti">Performance Debt</div><div class="debt-b">The structural accumulation of governance, decision, funding, cultural, and data misalignment across cycles. Left unresolved, it compounds — and athletes, teams, and organisations pay for problems they did not create. The HPOS is the instrument for finding and closing it.</div></div>
+    </div>
+  </div>
+  <footer><div class="fw"><span class="s">SEAN</span><span class="g">GIBSON</span></div><div class="fl"><a onclick="go('home')">Home</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div><small>© 2026</small></footer>
+</div>
+
+<!-- ══ SPEAKING ══ -->
+<div id="page-speaking" class="page">
+  <div class="pw pp">
+    <span class="tag" style="margin-bottom:1.5rem">Public Speaking</span>
+    <div class="sp-hero">
+      <div>
+        <h1 class="sp-h">A practitioner's perspective.<br>Not a consultant's pitch.</h1>
+        <p class="sp-sub">I speak from simultaneous operational roles — national team director, enterprise researcher, advisory founder. The credibility is live, not retrospective.</p>
+        <a href="mailto:sean@seangibson.co" class="btn btn-p">Book Me to Speak</a>
+      </div>
+      <div class="sp-stats">
+        <div class="sp-st"><div class="sp-st-n">3<em>×</em></div><div class="sp-st-l">Active senior operational roles — simultaneously</div></div>
+        <div class="sp-st"><div class="sp-st-n">20<em>+</em></div><div class="sp-st-l">Years across enterprise governance and elite sport</div></div>
+      </div>
+    </div>
+
+    <div class="ed" style="margin-bottom:3.5rem">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span class="ed-ph">GovNet Technology panel — replace src with your image</span>
+      <div class="ed-cap">GovNet Technology · London</div>
+    </div>
+
+    <div class="sc-grid">
+      <div class="sc"><span class="sc-t">Keynote</span><h3>The High Performance Operating System</h3><p>How performance is produced at system level — and why most organisations are solving the wrong problem. For boards, executives, and performance directors who need frameworks, not motivation.</p><span class="sc-d">30–60 mins · Available internationally</span></div>
+      <div class="sc"><span class="sc-t">Conferences</span><h3>Governing AI in Complex Organisations</h3><p>Practical frameworks for ethical, well-governed AI adoption. Drawn from enterprise GRC research and HPOS structural risk principles. For teams where governance is lagging the pace of adoption.</p><span class="sc-d">20–45 mins · Panel or solo</span></div>
+      <div class="sc"><span class="sc-t">Workshops &amp; Panels</span><h3>Working Sessions</h3><p>Facilitated sessions for boards, HP committees, and executive teams. Structured to surface structural misalignment, sharpen decision authority, and stress-test governance assumptions.</p><span class="sc-d">Half day or tailored format</span></div>
+    </div>
+
+    <div class="icp"><div class="icp-l">Who this is for</div><div class="icp-b">Sport boards navigating governance reform. Executive teams governing AI responsibly. Performance directors building systems under resource constraint. Leaders who suspect the performance problem is actually a structural one.</div></div>
+
+    <div class="sp-book">
+      <div><h3>Book a speaking engagement</h3><p>Available for keynotes, conference panels, and board workshops internationally. Reach out directly to discuss topics, format, and availability.</p></div>
+      <a href="mailto:sean@seangibson.co" class="btn btn-p">sean@seangibson.co <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+  <footer><div class="fw"><span class="s">SEAN</span><span class="g">GIBSON</span></div><div class="fl"><a onclick="go('home')">Home</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div><small>© 2026</small></footer>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div id="page-contact" class="page">
+  <div class="pw pp">
+    <div class="ct-wrap">
+      <span class="tag" style="margin-bottom:1.5rem">Get in Touch</span>
+      <h1 class="ct-hl">If the problem looks like performance but <em>feels like governance</em> — let's talk.</h1>
+      <p class="ct-lead">Advisory work through Glenview Sports. Speaking bookings direct. If you're working on something that doesn't fit a clean category — a system underperforming, an AI adoption that needs a governance layer, a sport programme where results don't match the investment — that's exactly where this starts.</p>
+      <div class="ct-cards">
+        <div class="ctc"><div class="ctc-l">Advisory</div><h3>Glenview Sports</h3><p>Sport governance, HP system design, AI governance frameworks. Board and executive level engagements.</p><a href="mailto:sean@seangibson.co" class="ctc-e">sean@seangibson.co <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        <div class="ctc"><div class="ctc-l">Speaking</div><h3>Book a Talk</h3><p>Keynotes, conference panels, and working sessions. Available internationally for sport and enterprise audiences.</p><a href="mailto:sean@seangibson.co" class="ctc-e">sean@seangibson.co <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M1.5 8.5L8.5 1.5M8.5 1.5H3.5M8.5 1.5V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      </div>
+      <div class="ct-main">
+        <div class="ct-main-l">Or reach out directly</div>
+        <a href="mailto:sean@seangibson.co" class="ct-email">sean@seangibson.co</a>
+      </div>
+    </div>
+  </div>
+  <footer><div class="fw"><span class="s">SEAN</span><span class="g">GIBSON</span></div><div class="fl"><a onclick="go('home')">Home</a><a onclick="go('about')">About</a><a onclick="go('speaking')">Speaking</a></div><small>© 2026</small></footer>
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const p=document.getElementById('page-'+id);
+  p.classList.add('active');
+  document.querySelectorAll('[data-p]').forEach(a=>a.classList.toggle('on',a.dataset.p===id));
+  window.scrollTo({top:0,behavior:'instant'});
+}
+</script>
+</body>
+</html>

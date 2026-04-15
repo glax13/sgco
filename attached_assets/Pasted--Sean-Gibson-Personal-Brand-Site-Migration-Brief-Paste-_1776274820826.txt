@@ -1,0 +1,121 @@
+# Sean Gibson Personal Brand Site — Migration Brief
+
+Paste this entire document into a new conversation to continue building the site.
+
+---
+
+## Context
+
+You are continuing work on a personal brand website for **Sean Gibson**. The site is built in plain HTML/CSS/JS with JS-based client-side routing (no frameworks, no build tools). It is a multi-page hub — Home, About, HPOS, Speaking, Contact — rendered as a single HTML file with page visibility toggled via a `go()` function.
+
+The site is in an artifact titled **"Sean Gibson — Reimagined"**. Paste the full HTML below into a new artifact with that title and type `text/html` to restore the working state.
+
+---
+
+## Brand Reference
+
+**Visual identity**
+- Background: `#07111a`
+- Surface: `#0a1520`
+- Card: `#0c1927`
+- Cream: `#EAE4D6`
+- Green: `#2EB872`
+- Fonts: Inter (body/headings) + DM Serif Display (italic serif accents only)
+- Grain texture overlay via SVG fractalNoise at 3% opacity
+- No em dashes anywhere in copy
+
+**Palette logic**
+- Cream used at 4 opacity levels: solid, 60%, 25%, 7%
+- Green used at 4 levels: solid, 40%, 10%, stroke-only
+- Green is accent only — never used for large backgrounds
+
+**Motion principles**
+- Page transitions: `cubic-bezier(.16,1,.3,1)` rise animation
+- Hover: `translateY(-1px)` on buttons, directional line reveals on cards
+- Ticker strip auto-scrolls, pauses on hover
+- Each interactive element has a distinct animation axis
+
+---
+
+## Site Structure
+
+| Page | Route | Purpose |
+|------|-------|---------|
+| Home | `go('home')` | Hero + stats bar + ticker + 3 pathway cards |
+| About | `go('about')` | Origin story + insight stack + editorial image + domain cards |
+| HPOS | `go('hpos')` | Framework definition + phases + dimensions + Performance Debt |
+| Speaking | `go('speaking')` | Hero + stats + speaking cards + ICP bar + book CTA |
+| Contact | `go('contact')` | Clean contact with advisory/speaking split |
+
+---
+
+## Key Content Facts
+
+- **Primary email:** sean@seangibson.co
+- **Website:** seangibson.co
+- **Core IP:** High Performance Operating System (HPOS) — a system-level construct describing how strategy, governance, people, pathways, data, and culture interact to produce outcomes
+- **Sub-concept:** Performance Debt — diagnostic concept within HPOS, not the headline
+- **Three domains:** Ardoq (commercial), Ireland Lacrosse (volunteer), Glenview Sports (advisory)
+- **Domain URLs:** ardoq.com · irelandlacrosse.ie · glenviewsports.com (all placeholders, confirm before going live)
+- **Speaking duration:** Keynote 30–60 mins · Conference 20–45 mins · Workshops half day
+- **Two editorial image slots** — both currently placeholder `div` elements:
+  - About page: GovNet conference panel photo (`object-position: center 30%`)
+  - HPOS + Speaking pages: World Lacrosse 2023 Snapdragon Stadium (`object-position: center 40%`)
+- **Hero headshot:** not yet placed — 3:4 aspect ratio slot in desktop hero
+
+---
+
+## Outstanding Tasks
+
+- [ ] Replace hero headshot placeholder with real photo
+- [ ] Replace GovNet editorial image placeholder with real photo
+- [ ] Replace World Lacrosse editorial image placeholder with real photo
+- [ ] Confirm and update all three domain outbound URLs
+- [ ] Review and personalise origin story paragraph (governance review moment)
+- [ ] Add LinkedIn / Substack links to footer once live
+- [ ] Consider adding a writing/ideas section linking to Substack
+
+---
+
+## Editorial Rules (non-negotiable)
+
+Apply to every output without exception:
+
+**Prohibited:**
+- Em dashes anywhere in prose
+- Triple verb stacking
+- Adjective stacking
+- Filler openers
+- Hedging constructions
+- Any call to action or promotional close
+- Self-referential framing
+
+**Required:**
+- British/Canadian spelling throughout (organisation, programme, behaviour)
+- Short sentences as the default
+- Reasoning visible before conclusions
+
+---
+
+## Instructions for Claude
+
+1. Create a new artifact titled **"Sean Gibson — Reimagined"** with type `text/html`
+2. Paste the full HTML from the code block below as the artifact content
+3. Confirm the site is restored and all four pages are navigable
+4. Ask what to work on next
+
+The site uses a `go(id)` function for navigation. All pages are `div` elements with `id="page-{name}"` and `class="page"`. The active page has class `active` added. Page transitions use a CSS animation named `rise`.
+
+---
+
+## Full Site HTML
+
+Paste the contents of the artifact **"Sean Gibson — Reimagined"** from your previous conversation here before migrating. The file is self-contained — all CSS, HTML, and JS in one file with no external dependencies except Google Fonts.
+
+```
+[PASTE FULL HTML HERE BEFORE MIGRATING]
+```
+
+---
+
+*Generated from the Personal Brand project conversation. Continue building in a new conversation by pasting this document.*
