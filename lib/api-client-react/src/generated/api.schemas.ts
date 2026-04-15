@@ -8,3 +8,53 @@
 export interface HealthStatus {
   status: string;
 }
+
+export type ContactFormBodyType =
+  (typeof ContactFormBodyType)[keyof typeof ContactFormBodyType];
+
+export const ContactFormBodyType = {
+  advisory: "advisory",
+  speaking: "speaking",
+  general: "general",
+} as const;
+
+export interface ContactFormBody {
+  /**
+   * @minLength 1
+   * @maxLength 200
+   */
+  name: string;
+  email: string;
+  type: ContactFormBodyType;
+  /**
+   * @minLength 1
+   * @maxLength 300
+   */
+  subject?: string;
+  /**
+   * @minLength 10
+   * @maxLength 5000
+   */
+  message: string;
+}
+
+export interface ContactFormResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface NewsletterBody {
+  email: string;
+  /** @maxLength 200 */
+  name?: string;
+}
+
+export interface NewsletterResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface ErrorResponse {
+  error: string;
+  details?: string;
+}

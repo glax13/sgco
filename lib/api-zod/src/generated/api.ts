@@ -14,3 +14,44 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * @summary Submit a contact form message
+ */
+export const submitContactBodyNameMax = 200;
+
+export const submitContactBodySubjectMax = 300;
+
+export const submitContactBodyMessageMin = 10;
+export const submitContactBodyMessageMax = 5000;
+
+export const SubmitContactBody = zod.object({
+  name: zod.string().min(1).max(submitContactBodyNameMax),
+  email: zod.string().email(),
+  type: zod.enum(["advisory", "speaking", "general"]),
+  subject: zod.string().min(1).max(submitContactBodySubjectMax).optional(),
+  message: zod
+    .string()
+    .min(submitContactBodyMessageMin)
+    .max(submitContactBodyMessageMax),
+});
+
+export const SubmitContactResponse = zod.object({
+  success: zod.boolean(),
+  message: zod.string(),
+});
+
+/**
+ * @summary Subscribe to newsletter
+ */
+export const subscribeNewsletterBodyNameMax = 200;
+
+export const SubscribeNewsletterBody = zod.object({
+  email: zod.string().email(),
+  name: zod.string().max(subscribeNewsletterBodyNameMax).optional(),
+});
+
+export const SubscribeNewsletterResponse = zod.object({
+  success: zod.boolean(),
+  message: zod.string(),
+});

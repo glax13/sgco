@@ -6,4 +6,10 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./contactFormBody";
+export * from "./contactFormBodyType";
+export * from "./contactFormResponse";
+export * from "./errorResponse";
 export * from "./healthStatus";
+export * from "./newsletterBody";
+export * from "./newsletterResponse";

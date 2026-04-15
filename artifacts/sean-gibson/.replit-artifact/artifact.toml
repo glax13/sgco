@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Sean Gibson"
+version = "1.0.0"
+id = "artifacts/sean-gibson"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24712
+
+[services.development]
+run = "pnpm --filter @workspace/sean-gibson run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/sean-gibson", "run", "build" ]
+publicDir = "artifacts/sean-gibson/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24712"
+BASE_PATH = "/"
