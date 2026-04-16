@@ -2,6 +2,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
 
 export default function Home() {
   useSEO({
@@ -19,40 +20,73 @@ export default function Home() {
 
   return (
     <PageLayout>
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-primary text-sm font-medium tracking-wide mb-8 uppercase" data-testid="text-tagline">
-            Systems Thinker · Sport Governance · AI Risk
-          </p>
-          <h1 className="text-5xl md:text-7xl font-light tracking-tight mb-8 leading-[1.1]" data-testid="text-headline">
-            I spent years asking why good organisations keep failing the same way.
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light" data-testid="text-subheadline">
-            The answer was always the same. It wasn't the people. It was the system. And no one was looking at the system.
-          </p>
-        </div>
-      </section>
+      <section className="relative min-h-screen flex items-end pb-0 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-[1fr_auto] gap-0 items-end">
 
-      <section className="border-y border-white/5 bg-[#0a1520]">
-        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-white/5">
-          <div className="md:pr-8 py-4 md:py-0">
-            <div className="text-4xl font-serif text-foreground mb-2">20+</div>
-            <div className="text-sm text-muted-foreground leading-relaxed">
-              Years across enterprise governance and elite sport leadership
+          <div className="pt-36 pb-12 md:pb-16 md:pr-12 flex flex-col justify-end">
+            <p className="text-primary text-xs font-semibold tracking-[0.22em] uppercase mb-8 flex items-center gap-3" data-testid="text-tagline">
+              <span className="w-[18px] h-px bg-primary inline-block" />
+              Systems Thinker · Sport Governance · AI Risk
+            </p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-[-0.055em] leading-[1.02] mb-6 max-w-[780px]" data-testid="text-headline">
+              I spent years asking why <em className="font-light italic not-italic" style={{ fontFamily: "'DM Serif Display', Georgia, serif", color: "var(--color-primary)" }}>good organisations</em> keep failing the same way.
+            </h1>
+            <p className="text-base text-muted-foreground leading-[1.9] max-w-[420px] mb-8" data-testid="text-subheadline">
+              The answer was always the same. It wasn't the people. It was the system. And no one was looking at the system.
+            </p>
+            <div className="flex gap-3 flex-wrap mb-16">
+              <Link href="/about">
+                <button className="px-5 py-2.5 bg-primary text-[#07111a] text-xs font-bold tracking-[0.12em] uppercase rounded-sm hover:opacity-88 hover:-translate-y-px transition-all" data-testid="button-my-story">
+                  My Story
+                </button>
+              </Link>
+              <Link href="/hpos">
+                <button className="px-5 py-2.5 border border-primary/40 text-primary text-xs font-bold tracking-[0.12em] uppercase rounded-sm hover:bg-primary/10 hover:-translate-y-px transition-all" data-testid="button-hpos">
+                  The High Performance OS
+                </button>
+              </Link>
+            </div>
+
+            <div className="border-t border-white/7 grid grid-cols-3 divide-x divide-white/7">
+              <div className="pr-8 py-5">
+                <div className="text-3xl font-black tracking-[-0.04em] text-foreground leading-none mb-1">
+                  20<span className="text-primary">+</span>
+                </div>
+                <div className="text-xs text-muted-foreground leading-[1.5]">
+                  Years across enterprise governance<br />and elite sport leadership
+                </div>
+              </div>
+              <div className="px-8 py-5">
+                <div className="text-3xl font-black tracking-[-0.04em] text-foreground leading-none mb-1">
+                  3<span className="text-primary">×</span>
+                </div>
+                <div className="text-xs text-muted-foreground leading-[1.5]">
+                  Active senior operational roles<br />simultaneously held
+                </div>
+              </div>
+              <div className="pl-8 py-5">
+                <div className="text-3xl font-black tracking-[-0.04em] text-foreground leading-none mb-1">
+                  1<span className="text-primary text-lg"> question</span>
+                </div>
+                <div className="text-xs text-muted-foreground leading-[1.5]">
+                  Is the system coherent? Who is<br />absorbing the cost when it isn't?
+                </div>
+              </div>
             </div>
           </div>
-          <div className="md:px-8 py-4 md:py-0">
-            <div className="text-4xl font-serif text-foreground mb-2">3×</div>
-            <div className="text-sm text-muted-foreground leading-relaxed">
-              Active senior operational roles simultaneously held
+
+          <div className="hidden md:block self-end">
+            <div className="w-[320px] lg:w-[380px] aspect-[3/4] overflow-hidden" style={{ maskImage: "linear-gradient(to top, transparent 0%, black 18%)", WebkitMaskImage: "linear-gradient(to top, transparent 0%, black 18%)" }}>
+              <img
+                src={headshotSrc}
+                alt="Sean Gibson"
+                className="w-full h-full object-cover object-center"
+                width={380}
+                height={507}
+              />
             </div>
           </div>
-          <div className="md:pl-8 py-4 md:py-0">
-            <div className="text-4xl font-serif text-foreground mb-2">1 question</div>
-            <div className="text-sm text-muted-foreground leading-relaxed">
-              Is the system coherent? Who is absorbing the cost when it isn't?
-            </div>
-          </div>
+
         </div>
       </section>
 
