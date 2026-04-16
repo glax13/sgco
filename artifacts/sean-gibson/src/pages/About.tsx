@@ -1,6 +1,7 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
 import { motion } from "framer-motion";
+import govnetSrc from "@assets/1675168183288_1776353956820.jfif";
 
 export default function About() {
   useSEO({
@@ -82,9 +83,16 @@ export default function About() {
       </section>
 
       <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="w-full aspect-[21/9] bg-card border border-white/5 flex items-center justify-center text-muted-foreground/50 text-sm font-medium uppercase tracking-widest relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent z-10" />
-          GovNet Conference · Photo Placeholder
+        <div className="w-full aspect-[21/9] overflow-hidden relative bg-card border border-white/5">
+          <img
+            src={govnetSrc}
+            alt="Sean Gibson speaking at GovNet Conference"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent pointer-events-none" />
+          <div className="absolute bottom-6 left-8 text-xs font-medium tracking-widest uppercase text-white/50">
+            GovNet Conference
+          </div>
         </div>
       </section>
     </PageLayout>
