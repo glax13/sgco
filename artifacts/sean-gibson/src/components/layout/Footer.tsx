@@ -1,37 +1,6 @@
-import { useState } from "react";
 import { Link } from "wouter";
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || submitting) return;
-    setSubmitting(true);
-    setError(false);
-    try {
-      await fetch("https://theperformancesystem.substack.com/api/v1/free", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          first_url: window.location.href,
-          source: "embed",
-        }),
-      });
-      setSuccess(true);
-      setEmail("");
-    } catch {
-      setError(true);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   return (
     <footer className="border-t border-white/5 bg-[#0a1520] pt-20 pb-10 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
@@ -82,44 +51,28 @@ export function Footer() {
           <p className="text-xs text-muted-foreground mb-5 leading-relaxed">
             Occasional writing on systems, performance, and governance. Via Substack.
           </p>
-
-          {success ? (
-            <p className="text-sm text-primary leading-relaxed">
-              Check your email to confirm your subscription.
-            </p>
-          ) : (
-            <form onSubmit={handleSubscribe} className="flex gap-2" noValidate>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email address"
-                className="flex-1 min-w-0 bg-[#07111a] border border-white/10 text-foreground text-sm px-3 py-2 rounded-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors"
-              />
-              <button
-                type="submit"
-                disabled={submitting}
-                className="px-4 py-2 bg-primary text-[#07111a] text-xs font-bold tracking-[0.1em] uppercase rounded-sm hover:opacity-88 disabled:opacity-50 transition-opacity whitespace-nowrap"
-              >
-                {submitting ? "..." : "Subscribe"}
-              </button>
-            </form>
-          )}
-
-          {error && !success && (
-            <p className="text-xs text-muted-foreground mt-2">
-              Something went wrong.{" "}
-              <a
-                href="https://theperformancesystem.substack.com/subscribe"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline-offset-2 underline"
-              >
-                Subscribe directly on Substack.
-              </a>
-            </p>
-          )}
+          <form
+            method="POST"
+            action="https://theperformancesystem.substack.com/api/v1/free"
+            target="_blank"
+            className="flex gap-2"
+          >
+            <input type="hidden" name="first_url" value="https://seangibson.co" />
+            <input type="hidden" name="source" value="embed" />
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="Email address"
+              className="flex-1 min-w-0 bg-[#07111a] border border-white/10 text-foreground text-sm px-3 py-2 rounded-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors"
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 bg-primary text-[#07111a] text-xs font-bold tracking-[0.1em] uppercase rounded-sm hover:opacity-88 transition-opacity whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
       </div>
 
