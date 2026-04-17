@@ -68,7 +68,7 @@ export function Footer() {
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-primary text-[#07111a] text-xs font-bold tracking-[0.1em] uppercase rounded-sm hover:opacity-88 transition-opacity whitespace-nowrap"
+              className="px-4 py-2 bg-primary text-[#07111a] text-xs font-bold tracking-[0.1em] uppercase rounded-sm hover:opacity-90 transition-opacity whitespace-nowrap"
             >
               Subscribe
             </button>
