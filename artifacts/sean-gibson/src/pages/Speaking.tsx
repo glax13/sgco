@@ -1,5 +1,6 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
+import snapdragonSrc from "@assets/image_1776436835400.png";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 
@@ -53,9 +54,16 @@ export default function Speaking() {
       </section>
 
       <section className="max-w-7xl mx-auto px-6 py-12 mb-24">
-        <div className="w-full aspect-[21/9] bg-card border border-white/5 flex items-center justify-center text-muted-foreground/50 text-sm font-medium uppercase tracking-widest relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent z-10" />
-          World Lacrosse 2023 · Snapdragon Stadium · Photo Placeholder
+        <div className="w-full aspect-[21/9] overflow-hidden relative bg-card border border-white/5">
+          <img
+            src={snapdragonSrc}
+            alt="World Lacrosse 2023 at Snapdragon Stadium, San Diego"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent pointer-events-none" />
+          <div className="absolute bottom-6 left-8 text-xs font-medium tracking-widest uppercase text-white/50">
+            World Lacrosse 2023 · Snapdragon Stadium
+          </div>
         </div>
       </section>
     </PageLayout>
