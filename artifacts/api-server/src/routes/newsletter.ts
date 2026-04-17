@@ -80,6 +80,15 @@ router.post("/newsletter/substack", async (req, res) => {
       return;
     }
 
+    try {
+      await db
+        .insert(newsletterSubscribersTable)
+        .values({ email, name: null })
+        .onConflictDoNothing();
+    } catch (dbErr) {
+      req.log.error({ dbErr }, "Failed to save Substack subscriber to local database");
+    }
+
     res.json({
       success: true,
       message: "Check your email to confirm your subscription.",
