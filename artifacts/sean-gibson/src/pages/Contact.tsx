@@ -42,7 +42,11 @@ export default function Contact() {
   });
 
   const onSubmit = (values: ContactFormValues) => {
-    submitContact.mutate({ data: values });
+    submitContact.mutate({ data: values }, {
+      onSuccess: () => {
+        form.reset();
+      }
+    });
   };
 
   return (
