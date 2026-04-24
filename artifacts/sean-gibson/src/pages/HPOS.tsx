@@ -3,13 +3,14 @@ import { useSEO } from "@/lib/seo";
 import snapdragonSrc from "@assets/image_1776436835400.png";
 
 export default function HPOS() {
-  useSEO({
+  const seo = useSEO({
     title: "The HPOS — Sean Gibson",
     description: "The High Performance Operating System. A system-level diagnostic and design framework."
   });
 
   return (
     <PageLayout>
+      {seo}
       <section className="py-24 px-6 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-12">The High Performance Operating System</h1>
         

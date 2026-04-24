@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 import govnetSrc from "@assets/1675168183288_1776353956820.jfif";
 
 export default function About() {
-  useSEO({
+  const seo = useSEO({
     title: "About — Sean Gibson",
     description: "Two worlds. One operating system. Sean Gibson's background across enterprise governance and elite sport leadership."
   });
 
   return (
     <PageLayout>
+      {seo}
       <section className="py-24 px-6 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-12">Two worlds. One operating system.</h1>
         

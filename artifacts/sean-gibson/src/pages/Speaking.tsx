@@ -5,13 +5,14 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 
 export default function Speaking() {
-  useSEO({
+  const seo = useSEO({
     title: "Speaking — Sean Gibson",
     description: "The frameworks work on stage too. Keynotes, conferences, and workshops by Sean Gibson."
   });
 
   return (
     <PageLayout>
+      {seo}
       <section className="py-24 px-6 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-12">The frameworks work on stage too.</h1>
         

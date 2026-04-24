@@ -2,13 +2,14 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
 
 export default function Privacy() {
-  useSEO({
+  const seo = useSEO({
     title: "Privacy Policy — Sean Gibson",
     description: "Privacy Policy for seangibson.co — how personal data submitted via the contact form and newsletter is collected and used.",
   });
 
   return (
     <PageLayout>
+      {seo}
       <section className="py-24 px-6 max-w-3xl mx-auto">
         <p className="text-primary text-xs font-semibold tracking-[0.2em] uppercase mb-6">
           Legal

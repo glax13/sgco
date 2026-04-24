@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
 
 export default function Home() {
-  useSEO({
+  const seo = useSEO({
     title: "Home — Sean Gibson",
     description: "Systems Thinker · Sport Governance · AI Risk. Sean Gibson is a senior executive operating across enterprise governance, elite sport leadership, and AI risk."
   });
@@ -20,6 +20,7 @@ export default function Home() {
 
   return (
     <PageLayout>
+      {seo}
       <section className="relative min-h-screen flex items-end pb-0 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-[1fr_auto] gap-0 items-end">
 

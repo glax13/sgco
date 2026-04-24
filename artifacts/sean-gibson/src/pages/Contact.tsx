@@ -23,7 +23,7 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 export default function Contact() {
-  useSEO({
+  const seo = useSEO({
     title: "Contact — Sean Gibson",
     description: "Let's talk about the system. Enquire about advisory work or speaking engagements."
   });
@@ -51,6 +51,7 @@ export default function Contact() {
 
   return (
     <PageLayout>
+      {seo}
       <section className="py-24 px-6 max-w-6xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-16 text-center">Let's talk about the system.</h1>
         
