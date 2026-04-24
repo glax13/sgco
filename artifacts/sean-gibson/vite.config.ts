@@ -46,6 +46,9 @@ export default defineConfig({
         ]
       : []),
   ],
+  optimizeDeps: {
+    include: ["react-helmet-async"],
+  },
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
