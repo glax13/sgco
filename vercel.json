@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "PORT=3000 BASE_PATH=/ pnpm --filter @workspace/sean-gibson run build",
+  "outputDirectory": "artifacts/sean-gibson/dist/public",
+  "installCommand": "pnpm install",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.ts" }
+  ]
+}
+
