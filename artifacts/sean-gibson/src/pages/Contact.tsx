@@ -24,8 +24,7 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 export default function Contact() {
   const seo = useSEO({
-    title: "Contact — Sean Gibson",
-    description: "Let's talk about the system. Enquire about advisory work or speaking engagements."
+    path: "/contact",
   });
 
   const submitContact = useSubmitContact();

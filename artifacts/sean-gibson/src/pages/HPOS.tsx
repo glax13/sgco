@@ -4,8 +4,7 @@ import snapdragonSrc from "@assets/image_1776436835400.png";
 
 export default function HPOS() {
   const seo = useSEO({
-    title: "The HPOS — Sean Gibson",
-    description: "The High Performance Operating System. A system-level diagnostic and design framework."
+    path: "/hpos",
   });
 
   return (

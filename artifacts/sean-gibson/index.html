@@ -3,22 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <!-- Fallback title/meta — react-helmet-async overrides these per-page at runtime -->
+    <!-- Fallback metadata for development; production builds replace it per route. -->
     <title>Sean Gibson — Systems Thinker, Sport Governance, AI Risk</title>
     <meta name="description" content="Sean Gibson is a systems thinker operating across enterprise governance, elite sport leadership, and AI risk. Creator of the High Performance Operating System (HPOS)." />
     <meta name="author" content="Sean Gibson" />
 
-    <!-- Open Graph — og:image is global; title/description/url overridden per-page by Helmet -->
+    <!-- Shared social metadata. Route metadata is inserted at build time. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Sean Gibson" />
-    <meta property="og:image" content="https://seangibson.co/opengraph.jpg" />
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://seangibson.co/opengraph.jpg" />
-
-    <!-- Canonical — overridden per-page by Helmet -->
     <link rel="canonical" href="https://seangibson.co/" />
+    <!-- ROUTE_SEO_HEAD -->
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

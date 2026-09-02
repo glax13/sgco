@@ -6,8 +6,7 @@ import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
 
 export default function Home() {
   const seo = useSEO({
-    title: "Home — Sean Gibson",
-    description: "Systems Thinker · Sport Governance · AI Risk. Sean Gibson is a senior executive operating across enterprise governance, elite sport leadership, and AI risk."
+    path: "/",
   });
 
   const tickerItems = [
