@@ -5,9 +5,7 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 
 export default function Speaking() {
-  const seo = useSEO({
-    path: "/speaking",
-  });
+  const seo = useSEO();
 
   return (
     <PageLayout>
@@ -30,7 +28,7 @@ export default function Speaking() {
           </div>
         </div>
 
-        <div className="space-y-6 mb-24">
+        <div className="space-y-6 mb-8">
           <SpeakingCard
             type="Keynote"
             title="The High Performance Operating System"
@@ -47,6 +45,10 @@ export default function Speaking() {
             desc="Where AI belongs in a decision system and where it does not. The HPOS control mechanisms applied to the live case: who is accountable for an AI-influenced decision, what evidence exists for it, and what happens under pressure when expert judgement defers to the model."
           />
         </div>
+
+        <p className="text-sm text-muted-foreground leading-relaxed mb-24">
+          Spoken at: IRM UK (three conferences, 2022 to 2023) · Govnet · DigiGov Expo · World Lacrosse
+        </p>
 
         <div className="bg-card border border-white/5 p-8 md:p-12 mb-24">
           <h3 className="text-sm font-medium text-primary tracking-wide uppercase mb-4">Ideal Client</h3>

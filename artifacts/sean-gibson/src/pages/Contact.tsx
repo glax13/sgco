@@ -23,9 +23,7 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 export default function Contact() {
-  const seo = useSEO({
-    path: "/contact",
-  });
+  const seo = useSEO();
 
   const submitContact = useSubmitContact();
 

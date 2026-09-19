@@ -2,9 +2,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
 
 export default function Privacy() {
-  const seo = useSEO({
-    path: "/privacy",
-  });
+  const seo = useSEO();
 
   return (
     <PageLayout>

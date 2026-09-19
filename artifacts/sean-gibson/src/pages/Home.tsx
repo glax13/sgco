@@ -5,10 +5,7 @@ import { motion } from "framer-motion";
 import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
 
 export default function Home() {
-  const seo = useSEO({
-    title: "Home — Sean Gibson",
-    description: "Enterprise Governance · High Performance Systems · Sport Governance. Current work: AI governance under the EU AI Act, in sport and in the enterprise."
-  });
+  const seo = useSEO();
 
   const tickerItems = [
     "Principal Researcher, GRC · Ardoq",
@@ -27,7 +24,7 @@ export default function Home() {
           <div className="pt-36 pb-12 md:pb-16 md:pr-12 flex flex-col justify-end">
             <p className="text-primary text-xs font-semibold tracking-[0.22em] uppercase mb-3 flex items-center gap-3" data-testid="text-tagline">
               <span className="w-[18px] h-px bg-primary inline-block shrink-0" />
-              Enterprise Governance · High Performance Systems · Sport Governance
+              Sport Governance · Enterprise Governance · High Performance Systems
             </p>
             <p className="text-xs text-muted-foreground tracking-normal normal-case pl-[30px] mb-8 max-w-[420px] leading-[1.7]" data-testid="text-current-work">
               Current work: AI governance under the EU AI Act, in sport and in the enterprise.
@@ -62,10 +59,10 @@ export default function Home() {
               </div>
               <div className="px-8 py-5">
                 <div className="text-3xl font-black tracking-[-0.04em] text-foreground leading-none mb-1">
-                  3<span className="text-primary">×</span>
+                  6<span className="text-primary text-lg"> years</span>
                 </div>
                 <div className="text-xs text-muted-foreground leading-[1.5]">
-                  Active senior operational roles<br />simultaneously held
+                  On the World Lacrosse Board, founding Chair of its Athletes' Commission
                 </div>
               </div>
               <div className="pl-8 py-5">
@@ -121,7 +118,7 @@ export default function Home() {
               number="02"
               tag="Methodology"
               title="The Framework"
-              description="The High Performance Operating System (HPOS) as a diagnostic lens."
+              description="The High Performance Operating System: an architecture, five dimensions, a method."
               link="/hpos"
             />
             <PathwayCard 

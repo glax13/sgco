@@ -4,9 +4,7 @@ import { motion } from "framer-motion";
 import govnetSrc from "@assets/1675168183288_1776353956820.jfif";
 
 export default function About() {
-  const seo = useSEO({
-    path: "/about",
-  });
+  const seo = useSEO();
 
   return (
     <PageLayout>
