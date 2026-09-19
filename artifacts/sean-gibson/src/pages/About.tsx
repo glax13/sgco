@@ -63,7 +63,7 @@ export default function About() {
             <DomainCard 
               role="Principal Researcher, GRC"
               org="Ardoq"
-              description="Researching and designing enterprise architecture solutions for governance, risk, and compliance at a global scale."
+              description="Researching how governance, risk and compliance work inside large organisations and turning that into what the platform supports. DORA, the EU AI Act, APRA CPS 230 and NIS2."
               link="https://ardoq.com"
             />
             <DomainCard 
@@ -75,8 +75,8 @@ export default function About() {
             <DomainCard 
               role="Founder"
               org="Glenview Sports"
-              description="Advisory work translating the High Performance Operating System for external boards and federations."
-              link="#"
+              description="Independent advisory to boards and federations on governance and high performance system design, built on the High Performance Operating System and Performance Debt."
+              link="https://glenviewsports.co"
             />
           </div>
         </div>

@@ -48,7 +48,10 @@ export function Footer() {
             <span className="text-primary ml-1">GIBSON</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            Systems Thinker · Sport Governance · AI Risk
+            Enterprise Governance · High Performance Systems · Sport Governance
+          </p>
+          <p className="text-xs text-muted-foreground/70 mt-2 leading-relaxed">
+            Current work: AI governance under the EU AI Act, in sport and in the enterprise.
           </p>
         </div>
 

@@ -6,7 +6,8 @@ import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
 
 export default function Home() {
   const seo = useSEO({
-    path: "/",
+    title: "Home — Sean Gibson",
+    description: "Enterprise Governance · High Performance Systems · Sport Governance. Current work: AI governance under the EU AI Act, in sport and in the enterprise."
   });
 
   const tickerItems = [
@@ -24,9 +25,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-[1fr_auto] gap-0 items-end">
 
           <div className="pt-36 pb-12 md:pb-16 md:pr-12 flex flex-col justify-end">
-            <p className="text-primary text-xs font-semibold tracking-[0.22em] uppercase mb-8 flex items-center gap-3" data-testid="text-tagline">
-              <span className="w-[18px] h-px bg-primary inline-block" />
-              Systems Thinker · Sport Governance · AI Risk
+            <p className="text-primary text-xs font-semibold tracking-[0.22em] uppercase mb-3 flex items-center gap-3" data-testid="text-tagline">
+              <span className="w-[18px] h-px bg-primary inline-block shrink-0" />
+              Enterprise Governance · High Performance Systems · Sport Governance
+            </p>
+            <p className="text-xs text-muted-foreground tracking-normal normal-case pl-[30px] mb-8 max-w-[420px] leading-[1.7]" data-testid="text-current-work">
+              Current work: AI governance under the EU AI Act, in sport and in the enterprise.
             </p>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-[-0.055em] leading-[1.02] mb-6 max-w-[780px]" data-testid="text-headline">
               I spent years asking why <em className="font-light italic not-italic" style={{ fontFamily: "'DM Serif Display', Georgia, serif", color: "var(--color-primary)" }}>good organisations</em> keep failing the same way.
