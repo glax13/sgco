@@ -32,9 +32,21 @@ export default function Speaking() {
         </div>
 
         <div className="space-y-6 mb-24">
-          <SpeakingCard type="Keynote" title="The High Performance Operating System" />
-          <SpeakingCard type="Conference" title="Performance Debt" />
-          <SpeakingCard type="Workshop" title="AI Governance & the Human System" />
+          <SpeakingCard
+            type="Keynote"
+            title="The High Performance Operating System"
+            desc="The architecture that decides whether a system holds under pressure: five layers, one value stream, four control mechanisms."
+          />
+          <SpeakingCard
+            type="Conference"
+            title="Performance Debt"
+            desc="What accumulates when the controls fail, in five categories, and how a board reads it before the result does."
+          />
+          <SpeakingCard
+            type="Workshop"
+            title="AI Governance & the Human System"
+            desc="Where AI belongs in a decision system and where it does not. The HPOS control mechanisms applied to the live case: who is accountable for an AI-influenced decision, what evidence exists for it, and what happens under pressure when expert judgement defers to the model."
+          />
         </div>
 
         <div className="bg-card border border-white/5 p-8 md:p-12 mb-24">
@@ -71,7 +83,7 @@ export default function Speaking() {
   );
 }
 
-function SpeakingCard({ type, title }: { type: string, title: string }) {
+function SpeakingCard({ type, title, desc }: { type: string, title: string, desc?: string }) {
   return (
     <motion.div 
       className="group bg-[#0a1520] border border-white/5 p-8 relative overflow-hidden"
@@ -88,6 +100,9 @@ function SpeakingCard({ type, title }: { type: string, title: string }) {
       />
       <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2 pl-4">{type}</div>
       <h3 className="text-2xl font-light text-foreground pl-4 group-hover:text-primary transition-colors">{title}</h3>
+      {desc && (
+        <p className="text-sm text-muted-foreground leading-relaxed pl-4 mt-3 max-w-2xl">{desc}</p>
+      )}
     </motion.div>
   );
 }

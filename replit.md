@@ -23,7 +23,7 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 ## Artifacts
 
 ### sean-gibson (react-vite, preview path: /)
-Sean Gibson personal brand site. Five pages: Home, About, HPOS, Speaking, Contact.
+Sean Gibson personal brand site. Six pages: Home, About, HPOS, Speaking, Contact, Privacy.
 - Brand: dark navy (#07111a), cream (#EAE4D6), green (#2EB872)
 - Fonts: Inter + DM Serif Display (Google Fonts)
 - Contact form stores submissions to PostgreSQL
@@ -52,10 +52,10 @@ Shared backend for all artifacts.
 
 ## Outstanding Tasks (from brief)
 
-- [ ] Replace hero headshot placeholder with real photo (3:4 ratio)
-- [ ] Replace GovNet conference panel photo (About page)
-- [ ] Replace World Lacrosse 2023 Snapdragon Stadium photo (HPOS + Speaking)
-- [ ] Confirm and update domain outbound URLs (ardoq.com, irelandlacrosse.ie, glenviewsports.com)
+- [x] Replace hero headshot placeholder with real photo (3:4 ratio)
+- [x] Replace GovNet conference panel photo (About page)
+- [x] Replace World Lacrosse 2023 Snapdragon Stadium photo (HPOS + Speaking)
+- [x] Confirm and update domain outbound URLs (ardoq.com, irelandlacrosse.ie, glenviewsports.co)
 - [ ] Review and personalise origin story paragraph
 - [ ] Consider adding writing/ideas section linking to Substack
 - [ ] Update sitemap.xml domain from seangibson.co once custom domain is live
