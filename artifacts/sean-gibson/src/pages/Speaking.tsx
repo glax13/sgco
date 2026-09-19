@@ -6,8 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Speaking() {
   const seo = useSEO({
-    title: "Speaking — Sean Gibson",
-    description: "The frameworks work on stage too. Keynotes, conferences, and workshops by Sean Gibson."
+    path: "/speaking",
   });
 
   return (

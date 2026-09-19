@@ -5,8 +5,7 @@ import govnetSrc from "@assets/1675168183288_1776353956820.jfif";
 
 export default function About() {
   const seo = useSEO({
-    title: "About — Sean Gibson",
-    description: "Two worlds. One operating system. Sean Gibson's background across enterprise governance and elite sport leadership."
+    path: "/about",
   });
 
   return (
