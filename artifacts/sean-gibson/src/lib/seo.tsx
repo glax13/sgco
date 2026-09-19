@@ -1,5 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'wouter';
+import snapdragonSrc from "@assets/image_1776436835400.png";
+import govnetSrc from "@assets/1675168183288_1776353956820.jfif";
+import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
 
 const BASE_URL = 'https://seangibson.co';
 
@@ -11,7 +14,7 @@ export const SITE_DESCRIPTION =
 
 export function useSEO() {
   const [location] = useLocation();
-  const canonical = `${BASE_URL}${location}`;
+  const seo = getRouteSEO(path || location);
 
   return (
     <Helmet>
