@@ -3,10 +3,7 @@ import { useSEO } from "@/lib/seo";
 import snapdragonSrc from "@assets/image_1776436835400.png";
 
 export default function HPOS() {
-  const seo = useSEO({
-    title: "The HPOS — Sean Gibson",
-    description: "The High Performance Operating System. An architecture, five dimensions and a method for how an organisation is put together, and why it holds or fails under pressure."
-  });
+  const seo = useSEO();
 
   return (
     <PageLayout>
@@ -50,11 +47,17 @@ export default function HPOS() {
             desc="Sets the standards, approves direction, holds the executive to account and carries the duty of care."
           />
 
-          <div className="border-l-2 border-primary/40 pl-4 md:pl-6 py-1">
-            <div className="text-[10px] font-semibold text-primary tracking-[0.2em] uppercase mb-3">
-              Value stream · runs across these three
-            </div>
-            <div className="space-y-4">
+          <div className="border-l-2 border-primary/40 pl-4 md:pl-0 py-1">
+            <div className="relative md:pl-12">
+              <div className="md:hidden text-[10px] font-semibold text-primary tracking-[0.2em] uppercase mb-3">
+                Value stream · runs across these three
+              </div>
+              <div className="hidden md:flex absolute left-0 top-0 bottom-0 w-12 items-center justify-center pointer-events-none">
+                <span className="text-[10px] font-semibold text-primary tracking-[0.2em] uppercase whitespace-nowrap [writing-mode:vertical-rl] rotate-180">
+                  Value stream · runs across these three
+                </span>
+              </div>
+              <div className="space-y-4">
               <LayerRow
                 name="Management"
                 desc="Runs the organisation between board meetings and allocates resources."
@@ -71,8 +74,9 @@ export default function HPOS() {
                 sport="Medical, science, and strength and conditioning."
                 enterprise="Finance, HR, IT, legal and risk."
               />
+              </div>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed mt-4">
+            <p className="text-sm text-muted-foreground leading-relaxed mt-4 md:pl-12">
               One value stream runs across the middle layers. In sport it is the athlete operating environment. In the enterprise it is the customer or product value stream. It is the cumulative product of every layer's decisions, and every layer has a defined obligation to it.
             </p>
           </div>
