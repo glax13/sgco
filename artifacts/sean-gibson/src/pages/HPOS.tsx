@@ -24,7 +24,7 @@ export default function HPOS() {
           </p>
         </div>
 
-        <h3 className="text-sm font-medium text-primary tracking-wide uppercase mb-8">How the system is built</h3>
+        <h2 className="text-sm font-medium text-primary tracking-wide uppercase mb-8">How the system is built</h2>
 
         <div className="border border-primary/20 bg-primary/5 p-6 md:p-8">
           <div className="text-[10px] font-semibold text-primary tracking-[0.2em] uppercase mb-3">Mandate</div>
@@ -112,13 +112,13 @@ export default function HPOS() {
         </div>
 
         <div className="border-t border-white/5 pt-12 mt-12 mb-24">
-          <h4 className="text-xl font-light text-foreground mb-4">Under compression</h4>
+          <h3 className="text-xl font-light text-foreground mb-4">Under compression</h3>
           <p className="text-base text-muted-foreground font-light leading-relaxed">
             Under compression, two things happen. Authority migrates and information narrows. In a well-designed system authority migrates toward expertise and information keeps flowing to those who can act. In a poorly designed one, decisions get made by whoever is in the room. The mechanisms decide which.
           </p>
         </div>
 
-        <h3 className="text-sm font-medium text-primary tracking-wide uppercase mb-4">The Five Dimensions</h3>
+        <h2 className="text-sm font-medium text-primary tracking-wide uppercase mb-4">The Five Dimensions</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mb-8 max-w-2xl">
           Each dimension is assessed through named layers and mechanisms. Culture is not a layer. It is what the system does under pressure, and it is read through the incentives.
         </p>
@@ -130,7 +130,7 @@ export default function HPOS() {
           <DimTile title="Culture" />
         </div>
 
-        <h3 className="text-sm font-medium text-primary tracking-wide uppercase mb-4">The Method</h3>
+        <h2 className="text-sm font-medium text-primary tracking-wide uppercase mb-4">The Method</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mb-8 max-w-2xl">
           A loop, not a line. It closes with a scheduled re-baseline when the cycle turns.
         </p>
@@ -203,7 +203,7 @@ export default function HPOS() {
 function LayerRow({ name, desc, sport, enterprise, tone }: { name: string, desc: string, sport?: string, enterprise?: string, tone?: "base" }) {
   return (
     <div className={`p-5 md:p-6 border ${tone === "base" ? "border-primary/15 bg-primary/[0.03]" : "border-white/5 bg-card"}`}>
-      <h4 className="text-base font-medium text-foreground mb-2">{name}</h4>
+      <h3 className="text-base font-medium text-foreground mb-2">{name}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
       {(sport || enterprise) && (
         <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
@@ -228,7 +228,7 @@ function LayerRow({ name, desc, sport, enterprise, tone }: { name: string, desc:
 function MechanismCard({ name, desc }: { name: string, desc: string }) {
   return (
     <div className="bg-card border border-white/5 p-6 h-full">
-      <h4 className="text-base font-medium text-foreground mb-2">{name}</h4>
+      <h3 className="text-base font-medium text-foreground mb-2">{name}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
     </div>
   );
@@ -237,11 +237,11 @@ function MechanismCard({ name, desc }: { name: string, desc: string }) {
 function MethodStep({ number, title, desc }: { number: string, title: string, desc: string }) {
   return (
     <div className="bg-card border border-white/5 p-6 md:p-8 flex flex-col md:flex-row gap-3 md:gap-8">
-      <div className="text-3xl font-serif font-black text-primary/30 leading-none md:w-16 shrink-0 select-none">
+      <div className="text-3xl font-serif font-black text-primary/70 leading-none md:w-16 shrink-0 select-none">
         {number}
       </div>
       <div>
-        <h4 className="text-lg font-medium text-foreground mb-2">{title}</h4>
+        <h3 className="text-lg font-medium text-foreground mb-2">{title}</h3>
         <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
       </div>
     </div>

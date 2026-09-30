@@ -1,11 +1,15 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
+import { Pause, Play } from "lucide-react";
 import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
 
 export default function Home() {
   const seo = useSEO();
+  const prefersReducedMotion = useReducedMotion();
+  const [tickerPaused, setTickerPaused] = useState(false);
 
   const tickerItems = [
     "Principal Researcher, GRC · Ardoq",
@@ -91,17 +95,55 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-b border-white/5 bg-background overflow-hidden py-6">
-        <div className="flex w-full overflow-hidden group">
-          <div className="flex whitespace-nowrap animate-ticker group-hover:[animation-play-state:paused]">
-            {[...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
-              <div key={i} className="flex items-center text-sm font-medium text-muted-foreground mx-8 whitespace-nowrap">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mr-8"></span>
+      <section className="border-b border-white/5 bg-background py-6" aria-label="Current and former roles">
+        {prefersReducedMotion ? (
+          /* Reduced motion gets the same roles, laid out statically. The
+             information is the point; the scroll was only ever delivery. */
+          <ul className="max-w-7xl mx-auto px-6 flex flex-wrap gap-x-8 gap-y-3">
+            {tickerItems.map((item) => (
+              <li key={item} className="flex items-center text-sm font-medium text-muted-foreground">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mr-3 shrink-0" aria-hidden="true" />
                 {item}
-              </div>
+              </li>
             ))}
+          </ul>
+        ) : (
+          <div className="relative">
+            <div className="flex w-full overflow-hidden group">
+              <div
+                className={`flex whitespace-nowrap animate-ticker ${
+                  tickerPaused
+                    ? "[animation-play-state:paused]"
+                    : "group-hover:[animation-play-state:paused]"
+                }`}
+              >
+                {[0, 1, 2].map((copy) => (
+                  // Only the first run is exposed; the other two exist to make
+                  // the loop seamless and would otherwise be read three times.
+                  <ul key={copy} className="flex" aria-hidden={copy > 0 ? true : undefined}>
+                    {tickerItems.map((item) => (
+                      <li key={item} className="flex items-center text-sm font-medium text-muted-foreground mx-8 whitespace-nowrap">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mr-8" aria-hidden="true" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ))}
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setTickerPaused((p) => !p)}
+              aria-pressed={tickerPaused}
+              aria-label={tickerPaused ? "Resume the scrolling list of roles" : "Pause the scrolling list of roles"}
+              className="absolute right-0 top-1/2 -translate-y-1/2 h-11 w-12 flex items-center justify-center bg-background text-muted-foreground hover:text-primary transition-colors before:content-[''] before:absolute before:right-full before:top-0 before:h-full before:w-12 before:bg-gradient-to-l before:from-background before:to-transparent before:pointer-events-none"
+              data-testid="button-ticker-toggle"
+            >
+              {tickerPaused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+            </button>
           </div>
-        </div>
+        )}
       </section>
 
       <section className="py-32 px-6">
@@ -149,7 +191,7 @@ function PathwayCard({ number, tag, title, description, link }: { number: string
         
         <div>
           <div className="text-xs font-medium text-primary tracking-wide uppercase mb-6">{tag}</div>
-          <h3 className="text-2xl font-light mb-4">{title}</h3>
+          <h2 className="text-2xl font-light mb-4">{title}</h2>
           <p className="text-muted-foreground text-sm leading-relaxed mb-12">{description}</p>
         </div>
         

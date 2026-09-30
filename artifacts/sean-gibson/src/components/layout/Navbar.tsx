@@ -1,10 +1,25 @@
 import { Link, useLocation } from "wouter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 export function Navbar() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Escape closes the menu, and so does landing on a new route. Without the
+  // second one, a back/forward navigation leaves the panel hanging open.
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
 
   const links = [
     { href: "/about", label: "About" },
@@ -27,7 +42,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav aria-label="Main" className="hidden md:flex items-center gap-8">
           {links.map((link) => (
             <Link 
               key={link.href} 
@@ -35,6 +50,7 @@ export function Navbar() {
               className={`text-sm font-medium transition-colors ${
                 location === link.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
+              aria-current={location === link.href ? "page" : undefined}
               data-testid={`link-${link.label.toLowerCase()}`}
             >
               {link.label}
@@ -50,31 +66,40 @@ export function Navbar() {
         </nav>
 
         {/* Mobile Toggle */}
-        <button 
-          className="md:hidden text-foreground p-2"
+        <button
+          type="button"
+          className="md:hidden text-foreground p-2 -mr-2 hover:text-primary transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
           data-testid="button-mobile-menu"
         >
-          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          {mobileMenuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
         </button>
       </div>
 
       {/* Mobile Nav */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0a1520] border-b border-white/5 px-6 py-6 flex flex-col gap-6">
+        <nav
+          id="mobile-menu"
+          aria-label="Main"
+          className="md:hidden bg-[#0a1520] border-b border-white/5 px-6 py-6 flex flex-col gap-6"
+        >
           {links.map((link) => (
-            <Link 
-              key={link.href} 
+            <Link
+              key={link.href}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className={`text-lg font-medium ${
+              aria-current={location === link.href ? "page" : undefined}
+              className={`text-lg font-medium py-1 ${
                 location === link.href ? "text-primary" : "text-muted-foreground"
               }`}
             >
               {link.label}
             </Link>
           ))}
-        </div>
+        </nav>
       )}
     </header>
   );

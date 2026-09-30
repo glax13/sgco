@@ -8,6 +8,15 @@ export function Footer() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "loading") return;
+
+    const trimmed = email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setStatus("error");
+      setMessage("Enter a valid email address, for example name@example.com.");
+      return;
+    }
+
     setStatus("loading");
     setMessage("");
 
@@ -15,7 +24,7 @@ export function Footer() {
       const res = await fetch("/api/newsletter/substack", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: trimmed }),
       });
 
       let data: Record<string, unknown> = {};
@@ -50,13 +59,13 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             Sport Governance · Enterprise Governance · High Performance Systems
           </p>
-          <p className="text-xs text-muted-foreground/70 mt-2 leading-relaxed">
+          <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
             Current work: AI governance under the EU AI Act, in sport and in the enterprise.
           </p>
         </div>
 
         <div className="md:col-span-4">
-          <h4 className="text-sm font-medium text-foreground mb-6">Links</h4>
+          <h2 className="text-sm font-medium text-foreground mb-6">Links</h2>
           <ul className="space-y-4 text-sm text-muted-foreground">
             <li>
               <a
@@ -87,35 +96,51 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-4">
-          <h4 className="text-sm font-medium text-foreground mb-2">Newsletter</h4>
+          <h2 className="text-sm font-medium text-foreground mb-2">Newsletter</h2>
           <p className="text-xs text-muted-foreground mb-5 leading-relaxed">
             Occasional writing on systems, performance, and governance. Via Substack.
           </p>
           {status === "success" ? (
-            <p className="text-xs text-primary">{message}</p>
+            <p className="text-xs text-primary" role="status">{message}</p>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2" noValidate>
+              <label htmlFor="newsletter-email" className="sr-only">
+                Email address
+              </label>
               <div className="flex gap-2">
                 <input
+                  id="newsletter-email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  maxLength={254}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  aria-required="true"
+                  aria-invalid={status === "error" ? true : undefined}
+                  aria-describedby={status === "error" ? "newsletter-error" : undefined}
                   disabled={status === "loading"}
                   placeholder="Email address"
-                  className="flex-1 min-w-0 bg-[#07111a] border border-white/10 text-foreground text-sm px-3 py-2 rounded-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors disabled:opacity-50"
+                  className="flex-1 min-w-0 bg-[#07111a] border border-white/10 text-foreground text-sm px-3 py-2 rounded-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors disabled:opacity-50"
                 />
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="px-4 py-2 bg-primary text-[#07111a] text-xs font-bold tracking-[0.1em] uppercase rounded-sm hover:opacity-90 transition-opacity whitespace-nowrap disabled:opacity-50"
+                  className="px-4 py-2 bg-primary text-primary-foreground text-xs font-bold tracking-[0.1em] uppercase rounded-sm hover:opacity-90 transition-opacity whitespace-nowrap disabled:opacity-50"
                 >
-                  {status === "loading" ? "..." : "Subscribe"}
+                  {status === "loading" ? "Sending" : "Subscribe"}
                 </button>
               </div>
-              {status === "error" && (
-                <p className="text-xs text-red-400">{message}</p>
-              )}
+              {/* Always mounted, so the live region exists before it has content. */}
+              <p
+                id="newsletter-error"
+                role="alert"
+                className={`text-xs text-red-400 ${status === "error" ? "" : "hidden"}`}
+              >
+                {status === "error" ? message : ""}
+              </p>
             </form>
           )}
         </div>

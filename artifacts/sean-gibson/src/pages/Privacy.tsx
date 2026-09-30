@@ -155,7 +155,7 @@ export default function Privacy() {
           </div>
 
           <div className="pt-4 border-t border-white/5">
-            <p className="text-xs text-muted-foreground/60">
+            <p className="text-xs text-muted-foreground">
               This policy is provided in good faith and is intended to reflect current data handling practices. It does not constitute legal advice. Sean Gibson recommends seeking independent legal review before relying on this policy for compliance purposes.
             </p>
           </div>

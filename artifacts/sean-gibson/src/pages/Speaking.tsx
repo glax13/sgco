@@ -51,7 +51,7 @@ export default function Speaking() {
         </p>
 
         <div className="bg-card border border-white/5 p-8 md:p-12 mb-24">
-          <h3 className="text-sm font-medium text-primary tracking-wide uppercase mb-4">Ideal Client</h3>
+          <h2 className="text-sm font-medium text-primary tracking-wide uppercase mb-4">Ideal Client</h2>
           <p className="text-xl text-foreground font-light leading-relaxed">
             Best fit for sport boards and federations, executive leadership teams navigating change, and organisations adopting AI who want to govern it responsibly.
           </p>
@@ -100,7 +100,7 @@ function SpeakingCard({ type, title, desc }: { type: string, title: string, desc
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       />
       <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2 pl-4">{type}</div>
-      <h3 className="text-2xl font-light text-foreground pl-4 group-hover:text-primary transition-colors">{title}</h3>
+      <h2 className="text-2xl font-light text-foreground pl-4 group-hover:text-primary transition-colors">{title}</h2>
       {desc && (
         <p className="text-sm text-muted-foreground leading-relaxed pl-4 mt-3 max-w-2xl">{desc}</p>
       )}
