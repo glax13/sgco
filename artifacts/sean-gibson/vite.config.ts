@@ -56,6 +56,9 @@ export default defineConfig({
     },
     dedupe: ["react", "react-dom"],
   },
+  ssr: {
+    noExternal: ["react-helmet-async"],
+  },
   root: path.resolve(import.meta.dirname),
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),

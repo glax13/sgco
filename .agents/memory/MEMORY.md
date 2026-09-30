@@ -1,0 +1,1 @@
+- [React Helmet prerendering](react-helmet-prerendering.md) — SSR builds must bundle react-helmet-async to avoid its CommonJS named-export failure.

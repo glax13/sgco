@@ -2,7 +2,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { motion, useReducedMotion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pause, Play } from "lucide-react";
 import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
 
@@ -10,6 +10,14 @@ export default function Home() {
   const seo = useSEO();
   const prefersReducedMotion = useReducedMotion();
   const [tickerPaused, setTickerPaused] = useState(false);
+
+  // The server cannot read a motion preference, so it always renders the
+  // marquee. Swapping to the static list only after mount keeps the first
+  // client render identical to the prerendered HTML and avoids a hydration
+  // mismatch for anyone who prefers reduced motion.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduceMotion = mounted && prefersReducedMotion;
 
   const tickerItems = [
     "Principal Researcher, GRC · Ardoq",
@@ -96,7 +104,7 @@ export default function Home() {
       </section>
 
       <section className="border-b border-white/5 bg-background py-6" aria-label="Current and former roles">
-        {prefersReducedMotion ? (
+        {reduceMotion ? (
           /* Reduced motion gets the same roles, laid out statically. The
              information is the point; the scroll was only ever delivery. */
           <ul className="max-w-7xl mx-auto px-6 flex flex-wrap gap-x-8 gap-y-3">

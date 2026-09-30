@@ -1,1 +1,1 @@
-export { useSEO } from './seo.tsx';
+export * from './seo.tsx';
