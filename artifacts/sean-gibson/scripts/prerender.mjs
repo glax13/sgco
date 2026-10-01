@@ -9,14 +9,22 @@ const serverEntry = path.join(artifactDir, "dist", "server", "entry-server.js");
 const template = await readFile(path.join(publicDir, "index.html"), "utf8");
 const { PUBLIC_ROUTES, render } = await import(pathToFileURL(serverEntry).href);
 // Strip exactly the tags Helmet re-emits per route, so they are not duplicated.
-// Everything else in the template is shared metadata Helmet never supplies
-// (og:type, og:site_name, og:image, twitter:card, twitter:image) and must survive.
-const productionTemplate = template
-  .replace(/\s*<title>[\s\S]*?<\/title>/, "")
-  .replace(/\s*<meta name="description"[^>]*>/, "")
-  .replace(/\s*<meta property="og:title"[^>]*>/, "")
-  .replace(/\s*<meta property="og:description"[^>]*>/, "")
-  .replace(/\s*<link rel="canonical"[^>]*>/, "");
+// useSEO now supplies the social tags per route too, so these all come out of
+// the template; index.html keeps them for the SPA fallback on routes that are
+// not prerendered. If you add a tag to useSEO, add it here as well.
+const HELMET_OWNED = [
+  /\s*<title>[\s\S]*?<\/title>/,
+  /\s*<meta name="description"[^>]*>/,
+  /\s*<meta property="og:title"[^>]*>/,
+  /\s*<meta property="og:description"[^>]*>/,
+  /\s*<meta property="og:type"[^>]*>/,
+  /\s*<meta property="og:site_name"[^>]*>/,
+  /\s*<meta property="og:image"[^>]*>/,
+  /\s*<meta name="twitter:card"[^>]*>/,
+  /\s*<meta name="twitter:image"[^>]*>/,
+  /\s*<link rel="canonical"[^>]*>/,
+];
+const productionTemplate = HELMET_OWNED.reduce((acc, re) => acc.replace(re, ""), template);
 
 for (const route of PUBLIC_ROUTES) {
   const { html, head } = render(route);
