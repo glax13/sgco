@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,8 +8,21 @@ interface PageLayoutProps {
   children: ReactNode;
 }
 
+/**
+ * Each page renders its own PageLayout, so a per-instance flag would read as a
+ * first render on every navigation. This lives at module scope instead, and it
+ * only ever flips inside an effect, which never runs during prerendering. So
+ * the server marks all six routes as first paint and ships them visible, while
+ * the browser flips it once after hydration and animates every route after.
+ */
+let hasPaintedOnce = false;
+
 export function PageLayout({ children }: PageLayoutProps) {
   const [location] = useLocation();
+  const isFirstPaint = !hasPaintedOnce;
+  useEffect(() => {
+    hasPaintedOnce = true;
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/30 selection:text-primary">
@@ -25,7 +38,11 @@ export function PageLayout({ children }: PageLayoutProps) {
           id="main"
           tabIndex={-1}
           key={location}
-          initial={{ opacity: 0, y: 20 }}
+          /* The first render settles immediately. Animating it in would ship
+             the prerendered HTML as opacity:0 with a 20px offset, leaving the
+             page invisible until React hydrates and blank for anyone whose
+             JavaScript never arrives. Every later route change still animates. */
+          initial={isFirstPaint ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}

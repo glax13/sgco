@@ -3,10 +3,10 @@ import { useLocation } from 'wouter';
 
 const BASE_URL = 'https://seangibson.co';
 
-export const SITE_TITLE =
+const SITE_TITLE =
   'Sean Gibson: Sport Governance, Enterprise Governance, High Performance Systems';
 
-export const SITE_DESCRIPTION =
+const SITE_DESCRIPTION =
   'A framework for how an organisation is actually put together, and why it holds or fails under pressure. Governance and high performance systems, in sport and in the enterprise.';
 
 /** Routes the prerenderer walks. Keep in step with the Switch in App.tsx. */

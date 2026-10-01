@@ -1,7 +1,10 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
 import { motion } from "framer-motion";
-import govnetSrc from "@assets/1675168183288_1776353956820.jfif";
+import govnet760 from "@assets/derived/govnet-760.jpg";
+import govnet1120 from "@assets/derived/govnet-1120.jpg";
+import govnet1280 from "@assets/derived/govnet-1280.jpg";
+import { PhotoBand } from "@/components/PhotoBand";
 
 export default function About() {
   const seo = useSEO();
@@ -29,21 +32,21 @@ export default function About() {
         <div className="mt-20">
           <h2 className="text-sm font-medium text-primary tracking-wide uppercase mb-8">The Insight Stack</h2>
           <div className="space-y-4">
-            <div className="bg-card border border-white/5 p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
+            <div className="bg-card border border-hairline p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
               <div className="text-xl font-serif text-muted-foreground w-12">01</div>
               <div>
                 <h3 className="text-lg font-medium text-foreground mb-1">The Governance Gap</h3>
                 <p className="text-sm text-muted-foreground">The distance between what a board thinks is happening and what the system actually incentivises.</p>
               </div>
             </div>
-            <div className="bg-card border border-white/5 p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
+            <div className="bg-card border border-hairline p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
               <div className="text-xl font-serif text-muted-foreground w-12">02</div>
               <div>
                 <h3 className="text-lg font-medium text-foreground mb-1">System Incoherence</h3>
                 <p className="text-sm text-muted-foreground">When strategy asks for one thing, but pathways and culture reward another.</p>
               </div>
             </div>
-            <div className="bg-card border border-white/5 p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
+            <div className="bg-card border border-hairline p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
               <div className="text-xl font-serif text-muted-foreground w-12">03</div>
               <div>
                 <h3 className="text-lg font-medium text-foreground mb-1">Performance Debt</h3>
@@ -54,7 +57,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-24 px-6 border-t border-white/5 bg-[#0a1520]">
+      <section className="py-24 px-6 border-t border-hairline bg-surface">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-sm font-medium text-primary tracking-wide uppercase mb-12">Active Domains</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -80,19 +83,14 @@ export default function About() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="w-full aspect-[21/9] overflow-hidden relative bg-card border border-white/5">
-          <img
-            src={govnetSrc}
-            alt="Sean Gibson speaking at GovNet Conference"
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent pointer-events-none" />
-          <div className="absolute bottom-6 left-8 text-xs font-medium tracking-widest uppercase text-white/50">
-            GovNet Conference
-          </div>
-        </div>
-      </section>
+      <PhotoBand
+        src={govnet1120}
+        srcSet={`${govnet760} 760w, ${govnet1120} 1120w, ${govnet1280} 1280w`}
+        alt="Sean Gibson speaking at GovNet Conference"
+        caption="GovNet Conference"
+        width={1280}
+        height={549}
+      />
     </PageLayout>
   );
 }
@@ -106,7 +104,7 @@ function DomainCard({ role, org, description, link }: { role: string, org: strin
       className="block group"
     >
       <motion.div 
-        className="bg-card border border-white/5 p-8 h-full relative overflow-hidden cursor-pointer"
+        className="bg-card border border-hairline p-8 h-full relative overflow-hidden cursor-pointer"
         whileHover="hover"
         initial="initial"
       >

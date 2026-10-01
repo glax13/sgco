@@ -1,6 +1,9 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
-import snapdragonSrc from "@assets/image_1776436835400.png";
+import { PhotoBand } from "@/components/PhotoBand";
+import stadium760 from "@assets/derived/stadium-760.jpg";
+import stadium1120 from "@assets/derived/stadium-1120.jpg";
+import stadium1439 from "@assets/derived/stadium-1439.jpg";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 
@@ -13,7 +16,7 @@ export default function Speaking() {
       <section className="py-24 px-6 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-12">The frameworks work on stage too.</h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 border-y border-white/5 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 border-y border-hairline py-8">
           <div>
             <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Keynote</div>
             <div className="text-lg text-foreground font-medium">30-60 mins</div>
@@ -50,7 +53,7 @@ export default function Speaking() {
           Spoken at: IRM UK (three conferences, 2022 to 2023) · Govnet · DigiGov Expo · World Lacrosse
         </p>
 
-        <div className="bg-card border border-white/5 p-8 md:p-12 mb-24">
+        <div className="bg-card border border-hairline p-8 md:p-12 mb-24">
           <h2 className="text-sm font-medium text-primary tracking-wide uppercase mb-4">Ideal Client</h2>
           <p className="text-xl text-foreground font-light leading-relaxed">
             Best fit for sport boards and federations, executive leadership teams navigating change, and organisations adopting AI who want to govern it responsibly.
@@ -67,19 +70,14 @@ export default function Speaking() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-12 mb-24">
-        <div className="w-full aspect-[21/9] overflow-hidden relative bg-card border border-white/5">
-          <img
-            src={snapdragonSrc}
-            alt="World Lacrosse 2023 at Snapdragon Stadium, San Diego"
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent pointer-events-none" />
-          <div className="absolute bottom-6 left-8 text-xs font-medium tracking-widest uppercase text-white/50">
-            World Lacrosse 2023 · Snapdragon Stadium
-          </div>
-        </div>
-      </section>
+      <PhotoBand
+        src={stadium1120}
+        srcSet={`${stadium760} 760w, ${stadium1120} 1120w, ${stadium1439} 1439w`}
+        alt="World Lacrosse 2023 at Snapdragon Stadium, San Diego"
+        caption="World Lacrosse 2023 · Snapdragon Stadium"
+        width={1439}
+        height={617}
+      />
     </PageLayout>
   );
 }
@@ -87,7 +85,7 @@ export default function Speaking() {
 function SpeakingCard({ type, title, desc }: { type: string, title: string, desc?: string }) {
   return (
     <motion.div 
-      className="group bg-[#0a1520] border border-white/5 p-8 relative overflow-hidden"
+      className="group bg-surface border border-hairline p-8 relative overflow-hidden"
       whileHover="hover"
       initial="initial"
     >

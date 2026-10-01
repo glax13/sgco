@@ -1,6 +1,9 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
-import snapdragonSrc from "@assets/image_1776436835400.png";
+import { PhotoBand } from "@/components/PhotoBand";
+import stadium760 from "@assets/derived/stadium-760.jpg";
+import stadium1120 from "@assets/derived/stadium-1120.jpg";
+import stadium1439 from "@assets/derived/stadium-1439.jpg";
 
 export default function HPOS() {
   const seo = useSEO();
@@ -111,7 +114,7 @@ export default function HPOS() {
           />
         </div>
 
-        <div className="border-t border-white/5 pt-12 mt-12 mb-24">
+        <div className="border-t border-hairline pt-12 mt-12 mb-24">
           <h3 className="text-xl font-light text-foreground mb-4">Under compression</h3>
           <p className="text-base text-muted-foreground font-light leading-relaxed">
             Under compression, two things happen. Authority migrates and information narrows. In a well-designed system authority migrates toward expertise and information keeps flowing to those who can act. In a poorly designed one, decisions get made by whoever is in the room. The mechanisms decide which.
@@ -162,7 +165,7 @@ export default function HPOS() {
           />
         </div>
 
-        <div className="border-t border-white/5 pt-16 mb-12">
+        <div className="border-t border-hairline pt-16 mb-12">
           <h2 className="text-3xl font-light mb-6">Performance Debt</h2>
           <p className="text-lg text-muted-foreground font-light leading-relaxed">
             Performance Debt is the structural gap between what an organisation claims to prioritise and what its system actually rewards. It accumulates in five categories: governance, funding, decision-rights, cultural and data debt. Each compounds into the others.
@@ -183,26 +186,21 @@ export default function HPOS() {
         </p>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-12 mb-24">
-        <div className="w-full aspect-[21/9] overflow-hidden relative bg-card border border-white/5">
-          <img
-            src={snapdragonSrc}
-            alt="World Lacrosse 2023 at Snapdragon Stadium, San Diego"
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent pointer-events-none" />
-          <div className="absolute bottom-6 left-8 text-xs font-medium tracking-widest uppercase text-white/50">
-            World Lacrosse 2023 · Snapdragon Stadium
-          </div>
-        </div>
-      </section>
+      <PhotoBand
+        src={stadium1120}
+        srcSet={`${stadium760} 760w, ${stadium1120} 1120w, ${stadium1439} 1439w`}
+        alt="World Lacrosse 2023 at Snapdragon Stadium, San Diego"
+        caption="World Lacrosse 2023 · Snapdragon Stadium"
+        width={1439}
+        height={617}
+      />
     </PageLayout>
   );
 }
 
 function LayerRow({ name, desc, sport, enterprise, tone }: { name: string, desc: string, sport?: string, enterprise?: string, tone?: "base" }) {
   return (
-    <div className={`p-5 md:p-6 border ${tone === "base" ? "border-primary/15 bg-primary/[0.03]" : "border-white/5 bg-card"}`}>
+    <div className={`p-5 md:p-6 border ${tone === "base" ? "border-primary/15 bg-primary/[0.03]" : "border-hairline bg-card"}`}>
       <h3 className="text-base font-medium text-foreground mb-2">{name}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
       {(sport || enterprise) && (
@@ -227,7 +225,7 @@ function LayerRow({ name, desc, sport, enterprise, tone }: { name: string, desc:
 
 function MechanismCard({ name, desc }: { name: string, desc: string }) {
   return (
-    <div className="bg-card border border-white/5 p-6 h-full">
+    <div className="bg-card border border-hairline p-6 h-full">
       <h3 className="text-base font-medium text-foreground mb-2">{name}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
     </div>
@@ -236,7 +234,7 @@ function MechanismCard({ name, desc }: { name: string, desc: string }) {
 
 function MethodStep({ number, title, desc }: { number: string, title: string, desc: string }) {
   return (
-    <div className="bg-card border border-white/5 p-6 md:p-8 flex flex-col md:flex-row gap-3 md:gap-8">
+    <div className="bg-card border border-hairline p-6 md:p-8 flex flex-col md:flex-row gap-3 md:gap-8">
       <div className="text-3xl font-serif font-black text-primary/70 leading-none md:w-16 shrink-0 select-none">
         {number}
       </div>
@@ -250,7 +248,7 @@ function MethodStep({ number, title, desc }: { number: string, title: string, de
 
 function DimTile({ title }: { title: string }) {
   return (
-    <div className="flex-1 min-w-[140px] border border-white/5 bg-[#0a1520] p-6 text-center text-foreground font-medium hover:bg-card transition-colors">
+    <div className="flex-1 min-w-[140px] border border-hairline bg-surface p-6 text-center text-foreground font-medium hover:bg-card transition-colors">
       {title}
     </div>
   );

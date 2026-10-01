@@ -48,7 +48,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-white/5 bg-[#0a1520] pt-20 pb-10 px-6">
+    <footer className="border-t border-hairline bg-surface pt-20 pb-10 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
 
         <div className="md:col-span-4">
@@ -66,13 +66,13 @@ export function Footer() {
 
         <div className="md:col-span-4">
           <h2 className="text-sm font-medium text-foreground mb-6">Links</h2>
-          <ul className="space-y-4 text-sm text-muted-foreground">
+          <ul className="text-sm text-muted-foreground">
             <li>
               <a
                 href="https://www.linkedin.com/in/sgibson13/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-primary transition-colors"
+                className="inline-flex items-center min-h-11 hover:text-primary transition-colors"
               >
                 LinkedIn
               </a>
@@ -82,13 +82,13 @@ export function Footer() {
                 href="https://theperformancesystem.substack.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-primary transition-colors"
+                className="inline-flex items-center min-h-11 hover:text-primary transition-colors"
               >
                 Substack
               </a>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-primary transition-colors">
+              <Link href="/contact" className="inline-flex items-center min-h-11 hover:text-primary transition-colors">
                 Contact
               </Link>
             </li>
@@ -123,12 +123,12 @@ export function Footer() {
                   aria-describedby={status === "error" ? "newsletter-error" : undefined}
                   disabled={status === "loading"}
                   placeholder="Email address"
-                  className="flex-1 min-w-0 bg-[#07111a] border border-white/10 text-foreground text-sm px-3 py-2 rounded-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors disabled:opacity-50"
+                  className="flex-1 min-w-0 min-h-11 bg-background border border-hairline-strong text-foreground text-sm px-3 py-2 rounded-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors disabled:opacity-50"
                 />
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="px-4 py-2 bg-primary text-primary-foreground text-xs font-bold tracking-[0.1em] uppercase rounded-sm hover:opacity-90 transition-opacity whitespace-nowrap disabled:opacity-50"
+                  className="px-4 min-h-11 bg-primary text-primary-foreground text-xs font-bold tracking-[0.1em] uppercase rounded-sm hover:opacity-90 transition-opacity whitespace-nowrap disabled:opacity-50"
                 >
                   {status === "loading" ? "Sending" : "Subscribe"}
                 </button>
@@ -146,9 +146,9 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between gap-3 text-xs text-muted-foreground">
-        <span>© 2026 Sean Gibson. All rights reserved.</span>
-        <Link href="/privacy" className="hover:text-primary transition-colors">
+      <div className="max-w-7xl mx-auto border-t border-hairline pt-8 flex flex-col md:flex-row justify-between gap-3 text-xs text-muted-foreground">
+        <span className="inline-flex items-center min-h-11">© 2026 Sean Gibson. All rights reserved.</span>
+        <Link href="/privacy" className="inline-flex items-center min-h-11 hover:text-primary transition-colors">
           Privacy Policy
         </Link>
       </div>
