@@ -1,23 +1,17 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
-import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { Pause, Play } from "lucide-react";
-import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
+import hero320 from "@assets/derived/hero-320.jpg";
+import hero380 from "@assets/derived/hero-380.jpg";
+import hero640 from "@assets/derived/hero-640.jpg";
+import hero760 from "@assets/derived/hero-760.jpg";
 
 export default function Home() {
   const seo = useSEO();
-  const prefersReducedMotion = useReducedMotion();
   const [tickerPaused, setTickerPaused] = useState(false);
-
-  // The server cannot read a motion preference, so it always renders the
-  // marquee. Swapping to the static list only after mount keeps the first
-  // client render identical to the prerendered HTML and avoids a hydration
-  // mismatch for anyone who prefers reduced motion.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const reduceMotion = mounted && prefersReducedMotion;
 
   const tickerItems = [
     "Principal Researcher, GRC · Ardoq",
@@ -49,7 +43,7 @@ export default function Home() {
             </p>
             <div className="flex gap-3 flex-wrap mb-16">
               <Link href="/about">
-                <button className="px-5 py-2.5 bg-primary text-[#07111a] text-xs font-bold tracking-[0.12em] uppercase rounded-sm hover:opacity-88 hover:-translate-y-px transition-all" data-testid="button-my-story">
+                <button className="px-5 py-2.5 bg-primary text-primary-foreground text-xs font-bold tracking-[0.12em] uppercase rounded-sm hover:opacity-88 hover:-translate-y-px transition-all" data-testid="button-my-story">
                   My Story
                 </button>
               </Link>
@@ -60,7 +54,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="border-t border-white/7 grid grid-cols-3 divide-x divide-white/7">
+            <div className="border-t border-hairline grid grid-cols-3 divide-x divide-hairline">
               <div className="pr-8 py-5">
                 <div className="text-3xl font-black tracking-[-0.04em] text-foreground leading-none mb-1">
                   20<span className="text-primary">+</span>
@@ -90,12 +84,19 @@ export default function Home() {
 
           <div className="hidden md:block self-end">
             <div className="w-[320px] lg:w-[380px] aspect-[3/4] overflow-hidden" style={{ maskImage: "linear-gradient(to top, transparent 0%, black 18%)", WebkitMaskImage: "linear-gradient(to top, transparent 0%, black 18%)" }}>
+              {/* The portrait is hidden below md, but the browser downloads it
+                  regardless of an ancestor's display:none. The 1px entry in
+                  `sizes` is what it resolves against on a phone, so it picks
+                  the 320w candidate instead of a desktop-sized file. */}
               <img
-                src={headshotSrc}
+                src={hero380}
+                srcSet={`${hero320} 320w, ${hero380} 380w, ${hero640} 640w, ${hero760} 760w`}
+                sizes="(min-width: 1024px) 380px, (min-width: 768px) 320px, 1px"
                 alt="Sean Gibson"
                 className="w-full h-full object-cover object-center"
                 width={380}
-                height={507}
+                height={490}
+                decoding="async"
               />
             </div>
           </div>
@@ -103,55 +104,42 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-b border-white/5 bg-background py-6" aria-label="Current and former roles">
-        {reduceMotion ? (
-          /* Reduced motion gets the same roles, laid out statically. The
-             information is the point; the scroll was only ever delivery. */
-          <ul className="max-w-7xl mx-auto px-6 flex flex-wrap gap-x-8 gap-y-3">
-            {tickerItems.map((item) => (
-              <li key={item} className="flex items-center text-sm font-medium text-muted-foreground">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mr-3 shrink-0" aria-hidden="true" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div className="relative">
-            <div className="flex w-full overflow-hidden group">
-              <div
-                className={`flex whitespace-nowrap animate-ticker ${
-                  tickerPaused
-                    ? "[animation-play-state:paused]"
-                    : "group-hover:[animation-play-state:paused]"
-                }`}
-              >
-                {[0, 1, 2].map((copy) => (
-                  // Only the first run is exposed; the other two exist to make
-                  // the loop seamless and would otherwise be read three times.
-                  <ul key={copy} className="flex" aria-hidden={copy > 0 ? true : undefined}>
-                    {tickerItems.map((item) => (
-                      <li key={item} className="flex items-center text-sm font-medium text-muted-foreground mx-8 whitespace-nowrap">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mr-8" aria-hidden="true" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                ))}
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setTickerPaused((p) => !p)}
-              aria-pressed={tickerPaused}
-              aria-label={tickerPaused ? "Resume the scrolling list of roles" : "Pause the scrolling list of roles"}
-              className="absolute right-0 top-1/2 -translate-y-1/2 h-11 w-12 flex items-center justify-center bg-background text-muted-foreground hover:text-primary transition-colors before:content-[''] before:absolute before:right-full before:top-0 before:h-full before:w-12 before:bg-gradient-to-l before:from-background before:to-transparent before:pointer-events-none"
-              data-testid="button-ticker-toggle"
+      <section className="border-b border-hairline bg-background py-6" aria-label="Current and former roles">
+        <div className="relative">
+          <div className="ticker-viewport flex w-full overflow-hidden group">
+            <div
+              className={`ticker-track flex whitespace-nowrap animate-ticker ${
+                tickerPaused
+                  ? "[animation-play-state:paused]"
+                  : "group-hover:[animation-play-state:paused]"
+              }`}
             >
-              {tickerPaused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
-            </button>
+              {[0, 1, 2].map((copy) => (
+                // Only the first run is exposed; the other two exist to make
+                // the loop seamless and would otherwise be read three times.
+                <ul key={copy} className="ticker-run flex" aria-hidden={copy > 0 ? true : undefined}>
+                  {tickerItems.map((item) => (
+                    <li key={item} className="ticker-item flex items-center text-sm font-medium text-muted-foreground mx-8 whitespace-nowrap">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mr-8 shrink-0" aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
           </div>
-        )}
+
+          <button
+            type="button"
+            onClick={() => setTickerPaused((p) => !p)}
+            aria-pressed={tickerPaused}
+            aria-label={tickerPaused ? "Resume the scrolling list of roles" : "Pause the scrolling list of roles"}
+            className="ticker-toggle absolute right-0 top-1/2 -translate-y-1/2 h-11 w-12 flex items-center justify-center bg-background text-muted-foreground hover:text-primary transition-colors before:content-[''] before:absolute before:right-full before:top-0 before:h-full before:w-12 before:bg-gradient-to-l before:from-background before:to-transparent before:pointer-events-none"
+            data-testid="button-ticker-toggle"
+          >
+            {tickerPaused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+          </button>
+        </div>
       </section>
 
       <section className="py-32 px-6">
@@ -189,7 +177,7 @@ function PathwayCard({ number, tag, title, description, link }: { number: string
   return (
     <Link href={link}>
       <motion.div 
-        className="group relative bg-card border border-white/5 p-10 h-full flex flex-col justify-between overflow-hidden cursor-pointer"
+        className="group relative bg-card border border-hairline p-10 h-full flex flex-col justify-between overflow-hidden cursor-pointer"
         whileHover="hover"
         initial="initial"
       >

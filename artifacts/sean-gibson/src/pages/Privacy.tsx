@@ -25,7 +25,7 @@ export default function Privacy() {
             <p>
               This website is operated by Sean Gibson, trading as Glenview Sports. The data controller for all personal data collected through this site is:
             </p>
-            <div className="mt-4 pl-5 border-l border-white/10 space-y-1 text-muted-foreground">
+            <div className="mt-4 pl-5 border-l border-hairline-strong space-y-1 text-muted-foreground">
               <p>Sean Gibson</p>
               <p>seangibson.co</p>
               <p>
@@ -154,7 +154,7 @@ export default function Privacy() {
             </p>
           </div>
 
-          <div className="pt-4 border-t border-white/5">
+          <div className="pt-4 border-t border-hairline">
             <p className="text-xs text-muted-foreground">
               This policy is provided in good faith and is intended to reflect current data handling practices. It does not constitute legal advice. Sean Gibson recommends seeking independent legal review before relying on this policy for compliance purposes.
             </p>

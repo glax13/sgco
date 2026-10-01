@@ -41,7 +41,7 @@ export default function NotFound() {
             <Link
               key={d.href}
               href={d.href}
-              className="group block bg-card border border-white/5 p-6 hover:border-primary/30 transition-colors"
+              className="group block bg-card border border-hairline p-6 hover:border-primary/30 transition-colors"
             >
               <h3 className="text-lg font-medium text-foreground mb-1 group-hover:text-primary transition-colors">
                 {d.label}

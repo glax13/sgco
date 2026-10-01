@@ -53,13 +53,13 @@ export default function Contact() {
         <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-16 text-center">Let's talk about the system.</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
-          <div className="bg-card border border-white/5 p-8">
+          <div className="bg-card border border-hairline p-8">
             <h2 className="text-xl font-medium text-foreground mb-3">Advisory</h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               Strategy and governance work for boards, executive teams, and federations navigating complexity or adopting AI.
             </p>
           </div>
-          <div className="bg-card border border-white/5 p-8">
+          <div className="bg-card border border-hairline p-8">
             <h2 className="text-xl font-medium text-foreground mb-3">Speaking</h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               Keynotes, conferences, and half-day workshops exploring system coherence and performance debt.
@@ -69,10 +69,10 @@ export default function Contact() {
 
         <div className="max-w-2xl mx-auto">
           <div className="mb-12 text-center">
-            <a href="mailto:sean@seangibson.co" className="text-lg text-primary hover:underline font-medium">sean@seangibson.co</a>
+            <a href="mailto:sean@seangibson.co" className="inline-flex items-center min-h-11 text-lg text-primary hover:underline font-medium">sean@seangibson.co</a>
           </div>
 
-          <div className="bg-[#0a1520] border border-white/5 p-8">
+          <div className="bg-surface border border-hairline p-8">
             <div aria-live="polite" aria-atomic="true">
               {submitContact.isSuccess ? (
                 <Alert className="bg-primary/10 border-primary/20 text-primary mb-6">
@@ -119,7 +119,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel className="text-foreground">Name <span className="text-primary" aria-hidden="true">*</span></FormLabel>
                         <FormControl>
-                          <Input placeholder="Your name" autoComplete="name" maxLength={200} aria-required="true" className="bg-background border-white/10" {...field} />
+                          <Input placeholder="Your name" autoComplete="name" maxLength={200} aria-required="true" className="bg-background border-hairline-strong" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -132,7 +132,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel className="text-foreground">Email <span className="text-primary" aria-hidden="true">*</span></FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="your@email.com" autoComplete="email" inputMode="email" maxLength={254} aria-required="true" className="bg-background border-white/10" {...field} />
+                          <Input type="email" placeholder="your@email.com" autoComplete="email" inputMode="email" maxLength={254} aria-required="true" className="bg-background border-hairline-strong" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -148,7 +148,7 @@ export default function Contact() {
                       <FormLabel className="text-foreground">Enquiry Type</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="bg-background border-white/10">
+                          <SelectTrigger className="bg-background border-hairline-strong">
                             <SelectValue placeholder="Select enquiry type" />
                           </SelectTrigger>
                         </FormControl>
@@ -170,7 +170,7 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel className="text-foreground">Subject (Optional)</FormLabel>
                       <FormControl>
-                        <Input placeholder="What is this regarding?" autoComplete="off" maxLength={300} className="bg-background border-white/10" {...field} />
+                        <Input placeholder="What is this regarding?" autoComplete="off" maxLength={300} className="bg-background border-hairline-strong" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -188,7 +188,7 @@ export default function Contact() {
                           placeholder="Your message..."
                           maxLength={5000}
                           aria-required="true"
-                          className="min-h-[150px] bg-background border-white/10 resize-y"
+                          className="min-h-[150px] bg-background border-hairline-strong resize-y"
                           {...field}
                         />
                       </FormControl>

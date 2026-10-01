@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* Fonts are requested from index.html so the browser can start them
+   without waiting for this stylesheet to download and parse. */
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -15,6 +16,15 @@
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
   --color-card-border: hsl(var(--card-border));
+
+  /* The recessed panel surface: footer, mobile menu, dimension tiles, the
+     contact form and the About domains band. Sits between background and card. */
+  --color-surface: hsl(var(--surface));
+
+  /* The two rule weights the layout uses. Alpha rather than a solid colour, so
+     a rule reads the same over background, surface and card alike. */
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
 
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
@@ -68,6 +78,19 @@
   }
 }
 
+/* Brand tokens are stored as HSL triplets so Tailwind can apply opacity to
+   them. Four of them were rounded when they were authored, so the hex in each
+   comment below is the intended brand colour, not the one that ships:
+
+     --background  intends #07111a, renders #07131c
+     --card        intends #0c1927, renders #0b1723
+     --foreground  intends #EAE4D6, renders #e8e3d8
+     --primary     intends #2EB872, renders #2eb875
+
+   Every difference is one to three units per channel and invisible in use, but
+   it does mean the documented palette and the shipped palette disagree. Left
+   alone here because correcting it shifts every page; --surface below is
+   stored at full precision and renders exactly. */
 :root {
   --button-outline: rgba(234,228,214, .10);
   --badge-outline: rgba(234,228,214, .05);
@@ -84,6 +107,13 @@
   /* border: rgba(234,228,214,.07) -> ~207 58% 14% */
   --border: 207 58% 14%;
   
+  /* surface: #0a1520 -> 210 52.4% 8.2% */
+  --surface: 210 52.4% 8.2%;
+
+  /* hairline: the 1px rules, as white alpha rather than a solid tint */
+  --hairline: rgb(255 255 255 / 0.05);
+  --hairline-strong: rgb(255 255 255 / 0.1);
+
   /* card: #0c1927 -> 210 54% 9% */
   --card: 210 54% 9%;
   --card-foreground: 40 26% 88%;
@@ -129,54 +159,6 @@
   --radius: 0px; 
 }
 
-.dark {
-  --button-outline: rgba(234,228,214, .10);
-  --badge-outline: rgba(234,228,214, .05);
-
-  --opaque-button-border-intensity: 9;
-
-  --elevate-1: rgba(234,228,214, .04);
-  --elevate-2: rgba(234,228,214, .09);
-
-  --background: 207 58% 7%;
-  --foreground: 40 26% 88%;
-  --border: 207 58% 14%;
-  
-  --card: 210 54% 9%;
-  --card-foreground: 40 26% 88%;
-  --card-border: 207 58% 14%;
-
-  --sidebar: 207 58% 7%;
-  --sidebar-foreground: 40 26% 88%;
-  --sidebar-border: 207 58% 14%;
-  --sidebar-primary: 151 60% 45%;
-  --sidebar-primary-foreground: 207 58% 7%;
-  --sidebar-accent: 210 54% 9%;
-  --sidebar-accent-foreground: 40 26% 88%;
-  --sidebar-ring: 151 60% 45%;
-
-  --popover: 210 54% 9%;
-  --popover-foreground: 40 26% 88%;
-  --popover-border: 207 58% 14%;
-
-  --primary: 151 60% 45%;
-  --primary-foreground: 207 58% 7%;
-
-  --secondary: 210 54% 9%;
-  --secondary-foreground: 40 26% 88%;
-
-  --muted: 210 54% 9%;
-  --muted-foreground: 40 26% 53%;
-
-  --accent: 210 54% 9%;
-  --accent-foreground: 151 60% 45%;
-
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 40 26% 88%;
-
-  --input: 207 58% 14%;
-  --ring: 151 60% 45%;
-}
 
 @layer base {
   * {
@@ -197,6 +179,10 @@
   :focus-visible {
     outline: 2px solid hsl(var(--primary));
     outline-offset: 3px;
+    /* Tailwind's transition-colors covers outline-color, which made the ring
+       fade in from whatever colour the text happened to be. A focus indicator
+       has to read the instant it appears, so it does not animate. */
+    transition-duration: 0s;
   }
 
   ::selection {
@@ -226,21 +212,67 @@
   }
 }
 
-/* Reduced motion keeps every state change and every hierarchy cue.
-   What it removes is travel: marquee scroll and the lift on hover.
-   Colour, opacity and focus feedback all survive intact.
-   Framer Motion is handled separately via MotionConfig reducedMotion="user". */
+/* Reduced motion keeps every state change and every hierarchy cue. What it
+   removes is travel: the marquee scroll, the lift on hover, the nudge on an
+   arrow, the zoom on a watermark.
+
+   The ticker is handled entirely here rather than by branching in React. That
+   keeps one markup for the server and the client, so there is no hydration
+   gate, and the quiet layout still arrives if the JavaScript never does.
+   Framer Motion reads the same preference through MotionConfig in App.tsx. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-ticker {
-    animation: none;
+  html {
+    scroll-behavior: auto;
   }
 
   .hover\:-translate-y-px:hover,
-  .hover\:-translate-y-\[1px\]:hover {
+  .hover\:-translate-y-\[1px\]:hover,
+  .group:hover .group-hover\:translate-x-1,
+  .group:hover .group-hover\:scale-110 {
     transform: none;
   }
 
-  html {
-    scroll-behavior: auto;
+  /* The roles stop scrolling and become a plain wrapped list. */
+  .ticker-viewport {
+    overflow: visible;
+  }
+
+  .ticker-track {
+    animation: none;
+    flex-wrap: wrap;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    row-gap: 0.75rem;
+  }
+
+  .ticker-run {
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+  }
+
+  /* The duplicate runs only exist to make the loop seamless. */
+  .ticker-run[aria-hidden="true"] {
+    display: none;
+  }
+
+  .ticker-item {
+    margin-inline: 0 2rem;
+  }
+
+  .ticker-item > span {
+    margin-right: 0.75rem;
+  }
+
+  /* Nothing is moving, so there is nothing to pause. */
+  .ticker-toggle {
+    display: none;
+  }
+
+  /* Framer Motion drops the travel from the page transition but still paints
+     the initial offset for one frame before it does, which reads as a jump.
+     The opacity fade it applies alongside this is untouched. */
+  #main {
+    transform: none !important;
   }
 }
