@@ -54,13 +54,13 @@ export default function Contact() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
           <div className="bg-card border border-white/5 p-8">
-            <h3 className="text-xl font-medium text-foreground mb-3">Advisory</h3>
+            <h2 className="text-xl font-medium text-foreground mb-3">Advisory</h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               Strategy and governance work for boards, executive teams, and federations navigating complexity or adopting AI.
             </p>
           </div>
           <div className="bg-card border border-white/5 p-8">
-            <h3 className="text-xl font-medium text-foreground mb-3">Speaking</h3>
+            <h2 className="text-xl font-medium text-foreground mb-3">Speaking</h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               Keynotes, conferences, and half-day workshops exploring system coherence and performance debt.
             </p>
@@ -73,35 +73,53 @@ export default function Contact() {
           </div>
 
           <div className="bg-[#0a1520] border border-white/5 p-8">
-            {submitContact.isSuccess ? (
-              <Alert className="bg-primary/10 border-primary/20 text-primary mb-6">
-                <CheckCircle2 className="h-4 w-4" />
-                <AlertTitle>Success</AlertTitle>
-                <AlertDescription>
-                  Your message has been sent. I will get back to you shortly.
-                </AlertDescription>
-              </Alert>
-            ) : submitContact.isError ? (
-              <Alert variant="destructive" className="mb-6">
-                <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Error</AlertTitle>
-                <AlertDescription>
-                  There was a problem sending your message. Please try again or email directly.
-                </AlertDescription>
-              </Alert>
-            ) : null}
+            <div aria-live="polite" aria-atomic="true">
+              {submitContact.isSuccess ? (
+                <Alert className="bg-primary/10 border-primary/20 text-primary mb-6">
+                  <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+                  <AlertTitle>Message sent</AlertTitle>
+                  <AlertDescription className="text-primary/90">
+                    Thank you. I will come back to you shortly.{" "}
+                    <button
+                      type="button"
+                      onClick={() => submitContact.reset()}
+                      className="underline underline-offset-4 hover:no-underline font-medium"
+                    >
+                      Send another message
+                    </button>
+                  </AlertDescription>
+                </Alert>
+              ) : submitContact.isError ? (
+                <Alert variant="destructive" className="mb-6">
+                  <AlertCircle className="h-4 w-4" aria-hidden="true" />
+                  <AlertTitle>Your message did not send</AlertTitle>
+                  <AlertDescription>
+                    Nothing was lost, your answers are still below. Press Send message to
+                    try again, or email{" "}
+                    <a href="mailto:sean@seangibson.co" className="underline underline-offset-4">
+                      sean@seangibson.co
+                    </a>{" "}
+                    directly.
+                  </AlertDescription>
+                </Alert>
+              ) : null}
+            </div>
+
+            <p className="text-sm text-muted-foreground mb-6">
+              Name, email and message are required. Everything else is optional.
+            </p>
 
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" noValidate>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-foreground">Name</FormLabel>
+                        <FormLabel className="text-foreground">Name <span className="text-primary" aria-hidden="true">*</span></FormLabel>
                         <FormControl>
-                          <Input placeholder="Your name" className="bg-background border-white/10" {...field} />
+                          <Input placeholder="Your name" autoComplete="name" maxLength={200} aria-required="true" className="bg-background border-white/10" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -112,9 +130,9 @@ export default function Contact() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-foreground">Email</FormLabel>
+                        <FormLabel className="text-foreground">Email <span className="text-primary" aria-hidden="true">*</span></FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="your@email.com" className="bg-background border-white/10" {...field} />
+                          <Input type="email" placeholder="your@email.com" autoComplete="email" inputMode="email" maxLength={254} aria-required="true" className="bg-background border-white/10" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -152,7 +170,7 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel className="text-foreground">Subject (Optional)</FormLabel>
                       <FormControl>
-                        <Input placeholder="What is this regarding?" className="bg-background border-white/10" {...field} />
+                        <Input placeholder="What is this regarding?" autoComplete="off" maxLength={300} className="bg-background border-white/10" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -164,12 +182,14 @@ export default function Contact() {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Message</FormLabel>
+                      <FormLabel className="text-foreground">Message <span className="text-primary" aria-hidden="true">*</span></FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="Your message..." 
-                          className="min-h-[150px] bg-background border-white/10 resize-y" 
-                          {...field} 
+                        <Textarea
+                          placeholder="Your message..."
+                          maxLength={5000}
+                          aria-required="true"
+                          className="min-h-[150px] bg-background border-white/10 resize-y"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -179,10 +199,10 @@ export default function Contact() {
 
                 <Button 
                   type="submit" 
-                  disabled={submitContact.isPending || submitContact.isSuccess}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                  disabled={submitContact.isPending}
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
                 >
-                  {submitContact.isPending ? "Sending..." : submitContact.isSuccess ? "Sent" : "Send Message"}
+                  {submitContact.isPending ? "Sending" : "Send message"}
                 </Button>
               </form>
             </Form>

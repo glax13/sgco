@@ -1,4 +1,6 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
+import { MotionConfig } from "framer-motion";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -28,17 +30,21 @@ function Router() {
 
 function App({ ssrPath }: { ssrPath?: string }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <WouterRouter
-          base={import.meta.env.BASE_URL.replace(/\/$/, "")}
-          ssrPath={ssrPath}
-        >
-          <Router />
-        </WouterRouter>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <MotionConfig reducedMotion="user">
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <WouterRouter
+              base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+              ssrPath={ssrPath}
+            >
+              <Router />
+            </WouterRouter>
+            <Toaster />
+          </TooltipProvider>
+        </QueryClientProvider>
+      </MotionConfig>
+    </ErrorBoundary>
   );
 }
 

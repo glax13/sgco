@@ -27,26 +27,26 @@ export default function About() {
         </div>
 
         <div className="mt-20">
-          <h3 className="text-sm font-medium text-primary tracking-wide uppercase mb-8">The Insight Stack</h3>
+          <h2 className="text-sm font-medium text-primary tracking-wide uppercase mb-8">The Insight Stack</h2>
           <div className="space-y-4">
             <div className="bg-card border border-white/5 p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
-              <div className="text-xl font-serif text-white/20 w-12">01</div>
+              <div className="text-xl font-serif text-muted-foreground w-12">01</div>
               <div>
-                <h4 className="text-lg font-medium text-foreground mb-1">The Governance Gap</h4>
+                <h3 className="text-lg font-medium text-foreground mb-1">The Governance Gap</h3>
                 <p className="text-sm text-muted-foreground">The distance between what a board thinks is happening and what the system actually incentivises.</p>
               </div>
             </div>
             <div className="bg-card border border-white/5 p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
-              <div className="text-xl font-serif text-white/20 w-12">02</div>
+              <div className="text-xl font-serif text-muted-foreground w-12">02</div>
               <div>
-                <h4 className="text-lg font-medium text-foreground mb-1">System Incoherence</h4>
+                <h3 className="text-lg font-medium text-foreground mb-1">System Incoherence</h3>
                 <p className="text-sm text-muted-foreground">When strategy asks for one thing, but pathways and culture reward another.</p>
               </div>
             </div>
             <div className="bg-card border border-white/5 p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
-              <div className="text-xl font-serif text-white/20 w-12">03</div>
+              <div className="text-xl font-serif text-muted-foreground w-12">03</div>
               <div>
-                <h4 className="text-lg font-medium text-foreground mb-1">Performance Debt</h4>
+                <h3 className="text-lg font-medium text-foreground mb-1">Performance Debt</h3>
                 <p className="text-sm text-muted-foreground">The accumulated cost of ignoring system incoherence over time.</p>
               </div>
             </div>
@@ -56,7 +56,7 @@ export default function About() {
 
       <section className="py-24 px-6 border-t border-white/5 bg-[#0a1520]">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-sm font-medium text-primary tracking-wide uppercase mb-12">Active Domains</h3>
+          <h2 className="text-sm font-medium text-primary tracking-wide uppercase mb-12">Active Domains</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <DomainCard 
               role="Principal Researcher, GRC"
@@ -111,7 +111,7 @@ function DomainCard({ role, org, description, link }: { role: string, org: strin
         initial="initial"
       >
         <div className="text-xs font-medium text-muted-foreground mb-2">{role}</div>
-        <h4 className="text-xl font-light text-foreground mb-4 group-hover:text-primary transition-colors">{org}</h4>
+        <h3 className="text-xl font-light text-foreground mb-4 group-hover:text-primary transition-colors">{org}</h3>
         <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
         
         <motion.div 

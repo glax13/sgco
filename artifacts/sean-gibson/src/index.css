@@ -64,7 +64,7 @@
 
   @keyframes ticker {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    100% { transform: translateX(-33.3333%); }
   }
 }
 
@@ -183,20 +183,64 @@
     @apply border-border;
   }
 
+  /* The site ships dark only. Tell the UA, so scrollbars, autofill,
+     date pickers and native select popups render in dark chrome. */
+  :root {
+    color-scheme: dark;
+  }
+
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
-  
+
+  /* Browser surfaces we did not draw, themed from the palette. */
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: hsl(var(--primary) / 0.9);
+    color: hsl(var(--primary-foreground));
+  }
+
+  input,
+  textarea {
+    caret-color: hsl(var(--primary));
+  }
+
+  @supports (scrollbar-color: auto) {
+    html {
+      scrollbar-color: hsl(var(--foreground) / 0.2) hsl(var(--background));
+    }
+  }
+
   body::after {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     pointer-events: none;
     z-index: 9999;
     opacity: 0.03;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Reduced motion keeps every state change and every hierarchy cue.
+   What it removes is travel: marquee scroll and the lift on hover.
+   Colour, opacity and focus feedback all survive intact.
+   Framer Motion is handled separately via MotionConfig reducedMotion="user". */
+@media (prefers-reduced-motion: reduce) {
+  .animate-ticker {
+    animation: none;
+  }
+
+  .hover\:-translate-y-px:hover,
+  .hover\:-translate-y-\[1px\]:hover {
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

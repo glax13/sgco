@@ -1,8 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'wouter';
-import snapdragonSrc from "@assets/image_1776436835400.png";
-import govnetSrc from "@assets/1675168183288_1776353956820.jfif";
-import headshotSrc from "@assets/Gibson_01a_1776325555130.jpg";
 
 const BASE_URL = 'https://seangibson.co';
 
@@ -12,9 +9,21 @@ export const SITE_TITLE =
 export const SITE_DESCRIPTION =
   'A framework for how an organisation is actually put together, and why it holds or fails under pressure. Governance and high performance systems, in sport and in the enterprise.';
 
+/** Routes the prerenderer walks. Keep in step with the Switch in App.tsx. */
+export const PUBLIC_ROUTES = [
+  '/',
+  '/about',
+  '/hpos',
+  '/speaking',
+  '/contact',
+  '/privacy',
+];
+
 export function useSEO() {
+  // Under SSR this resolves from the router's ssrPath, so each prerendered
+  // route gets its own canonical rather than the homepage's.
   const [location] = useLocation();
-  const seo = getRouteSEO(path || location);
+  const canonical = `${BASE_URL}${location}`;
 
   return (
     <Helmet>

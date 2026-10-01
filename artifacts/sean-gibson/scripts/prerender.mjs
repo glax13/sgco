@@ -8,12 +8,14 @@ const publicDir = path.join(artifactDir, "dist", "public");
 const serverEntry = path.join(artifactDir, "dist", "server", "entry-server.js");
 const template = await readFile(path.join(publicDir, "index.html"), "utf8");
 const { PUBLIC_ROUTES, render } = await import(pathToFileURL(serverEntry).href);
+// Strip exactly the tags Helmet re-emits per route, so they are not duplicated.
+// Everything else in the template is shared metadata Helmet never supplies
+// (og:type, og:site_name, og:image, twitter:card, twitter:image) and must survive.
 const productionTemplate = template
   .replace(/\s*<title>[\s\S]*?<\/title>/, "")
   .replace(/\s*<meta name="description"[^>]*>/, "")
-  .replace(/\s*<meta property="og:type"[^>]*>/, "")
-  .replace(/\s*<meta property="og:site_name"[^>]*>/, "")
-  .replace(/\s*<meta name="twitter:card"[^>]*>/, "")
+  .replace(/\s*<meta property="og:title"[^>]*>/, "")
+  .replace(/\s*<meta property="og:description"[^>]*>/, "")
   .replace(/\s*<link rel="canonical"[^>]*>/, "");
 
 for (const route of PUBLIC_ROUTES) {
